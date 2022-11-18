@@ -46,6 +46,7 @@ def main(stdscr):
 
         stdscr.refresh()
 
+        # Wait for next frame
         sleep(1 / FRAME_RATE)
 
     curses.endwin()
