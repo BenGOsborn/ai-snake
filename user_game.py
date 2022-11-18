@@ -24,6 +24,7 @@ def main(stdscr):
 
         # Update game state
         input_key = None
+
         if key == "KEY_UP":
             input_key = 0
         elif key == "KEY_DOWN":
