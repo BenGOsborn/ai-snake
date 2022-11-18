@@ -2,6 +2,7 @@ import curses
 from time import sleep
 
 from snake.snake import Snake
+from display.display import Display
 
 
 FRAME_RATE = 10
@@ -12,9 +13,8 @@ WIDTH = 20
 
 @curses.wrapper
 def main(stdscr):
-    stdscr.nodelay(1)
-
     snake = Snake(HEIGHT, WIDTH)
+    display = Display(snake, stdscr)
 
     # Game loop
     while True:
@@ -39,21 +39,7 @@ def main(stdscr):
         if snake.game_over():
             break
 
-        # Draw to screen
-        stdscr.clear()
-
-        for body in snake.snake:
-            stdscr.addch(body[0], body[1], curses.ACS_BLOCK)
-
-        stdscr.addch(snake.food[0], snake.food[1], curses.ACS_PI)
-
-        for i in range(HEIGHT):
-            stdscr.addch(i, WIDTH, curses.ACS_PLUS)
-
-        for i in range(WIDTH):
-            stdscr.addch(HEIGHT, i, curses.ACS_PLUS)
-
-        stdscr.refresh()
+        display.display()
 
         sleep(1 / FRAME_RATE)
 
