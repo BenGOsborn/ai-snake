@@ -15,11 +15,11 @@ class Brain:
 
     # Load a model
     def load_model(self, file):
-        pass
+        self.model.load_state_dict(torch.load(file))
 
     # Save the model
     def save_model(self, file):
-        pass
+        torch.save(self.model.state_dict(), file)
 
     # Choose a key for the snake to move
     def choose_key(self):
