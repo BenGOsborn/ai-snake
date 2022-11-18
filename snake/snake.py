@@ -27,9 +27,14 @@ class Snake:
 
     # Update the state of the game
     def update_state(self, key=None):
+        if self.game_over():
+            raise Exception("Game has already finished")
+
         # **** Check for food
         # **** Check for collision / out of bounds
         # **** Update position of snake
         # **** Terminate game if necessary
+
+        # Question - does it check first then update position or does it update position then check ????
 
         pass
