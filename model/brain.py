@@ -5,12 +5,21 @@
 # - We'll need a way of evaluating the current score of the model
 
 import torch
+from model.model import Model
 
 
 class Brain:
-    def __init__(self, snake, model):
+    def __init__(self, snake):
         self.snake = snake
-        self.model = model
+        self.model = Model(snake.width * snake.height)
+
+    # Load a model
+    def load_model(self, file):
+        pass
+
+    # Save the model
+    def save_model(self, file):
+        pass
 
     # Choose a key for the snake to move
     def choose_key(self):
