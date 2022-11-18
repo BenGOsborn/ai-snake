@@ -23,9 +23,10 @@ class Snake:
     def get_game_state(self):
         board = [[0 for _ in range(self.width)] for _ in range(self.height)]
 
-        for i, (y, x) in enumerate(self.snake[::-1]):
-            board[y][x] = i
+        for y, x in self.snake[1:]:
+            board[y][x] = 0.5
 
+        board[self.snake[0][0]][self.snake[0][1]] = 1
         board[self.food[0]][self.food[1]] = -1
 
         return board
