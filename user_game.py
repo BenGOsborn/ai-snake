@@ -5,13 +5,12 @@ from snake.snake import Snake
 from display.display import Display
 
 
-FRAME_RATE = 10
-
 HEIGHT = 20
 WIDTH = 20
 
+FRAME_RATE = 10
 
-@curses.wrapper
+
 def main(stdscr):
     snake = Snake(HEIGHT, WIDTH)
     display = Display(snake, stdscr)
@@ -47,4 +46,4 @@ def main(stdscr):
 
 
 if __name__ == "__main__":
-    main
+    curses.wrapper(main)
