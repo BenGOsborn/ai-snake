@@ -3,15 +3,11 @@ from time import sleep
 
 from snake.snake import Snake
 from display.display import Display
-
-
-HEIGHT = 30
-WIDTH = 50
-FRAME_RATE = 10
+import utils
 
 
 def main(stdscr):
-    snake = Snake(HEIGHT, WIDTH)
+    snake = Snake(utils.USER_HEIGHT, utils.USER_WIDTH)
     display = Display(snake, stdscr)
 
     # Game loop
@@ -40,7 +36,7 @@ def main(stdscr):
 
         display.display()
 
-        sleep(1 / FRAME_RATE)
+        sleep(1 / utils.FRAME_RATE)
 
     curses.endwin()
 
