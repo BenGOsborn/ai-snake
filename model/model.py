@@ -1,4 +1,3 @@
-import torch
 import torch.nn as nn
 
 
@@ -16,9 +15,3 @@ class Model(nn.Module):
 
     def forward(self, inputs):
         return self.network(inputs)
-
-
-if __name__ == "__main__":
-    model = Model(100)
-
-    print(model.state_dict())
