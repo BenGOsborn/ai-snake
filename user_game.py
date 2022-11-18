@@ -5,8 +5,8 @@ from snake.snake import Snake
 from display.display import Display
 
 
-HEIGHT = 10
-WIDTH = 10
+HEIGHT = 30
+WIDTH = 50
 FRAME_RATE = 10
 
 

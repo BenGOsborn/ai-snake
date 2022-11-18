@@ -7,7 +7,7 @@ from display.display import Display
 
 HEIGHT = 10
 WIDTH = 10
-FRAME_RATE = 10
+FRAME_RATE = 5
 
 
 def main(stdscr):
