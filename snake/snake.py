@@ -19,9 +19,16 @@ class Snake:
 
         self.food = self.select_food()
 
-    # Get the dimensions of the game
-    def get_dims(self):
-        return self.height, self.width
+    # Get the game board
+    def get_game_state(self):
+        board = [[0 for _ in range(self.width)] for _ in range(self.height)]
+
+        for i, (y, x) in enumerate(self.snake[::-1]):
+            board[y][x] = i
+
+        board[self.food[0]][self.food[1]] = -1
+
+        return board
 
     # Select a random location for food
     def select_food(self):

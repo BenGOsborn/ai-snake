@@ -10,13 +10,14 @@ HEIGHT = 20
 WIDTH = 20
 
 
+@curses.wrapper
 def main(stdscr):
     stdscr.nodelay(1)
 
     snake = Snake(HEIGHT, WIDTH)
 
     # Game loop
-    while not snake.game_over():
+    while True:
         # Get input
         try:
             key = stdscr.getkey()
@@ -35,6 +36,8 @@ def main(stdscr):
             input_key = 3
 
         snake.update_state(key=input_key)
+        if snake.game_over():
+            break
 
         # Draw to screen
         stdscr.clear()
@@ -58,4 +61,4 @@ def main(stdscr):
 
 
 if __name__ == "__main__":
-    curses.wrapper(main)
+    main
