@@ -7,7 +7,6 @@ from display.display import Display
 
 HEIGHT = 20
 WIDTH = 20
-
 FRAME_RATE = 10
 
 
