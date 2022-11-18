@@ -4,10 +4,10 @@ from time import sleep
 from snake.snake import Snake
 
 
-FRAME_RATE = 30
+FRAME_RATE = 10
 
-HEIGHT = 25
-WIDTH = 25
+HEIGHT = 20
+WIDTH = 20
 
 
 def main(stdscr):
@@ -39,14 +39,19 @@ def main(stdscr):
         # Draw to screen
         stdscr.clear()
 
-        stdscr.addch(snake.food[0], snake.food[1], curses.ACS_PI)
-
         for body in snake.snake:
             stdscr.addch(body[0], body[1], curses.ACS_BLOCK)
 
+        stdscr.addch(snake.food[0], snake.food[1], curses.ACS_PI)
+
+        for i in range(HEIGHT):
+            stdscr.addch(i, WIDTH, curses.ACS_PLUS)
+
+        for i in range(WIDTH):
+            stdscr.addch(HEIGHT, i, curses.ACS_PLUS)
+
         stdscr.refresh()
 
-        # Wait for next frame
         sleep(1 / FRAME_RATE)
 
     curses.endwin()

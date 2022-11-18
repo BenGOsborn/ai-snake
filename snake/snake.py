@@ -30,7 +30,7 @@ class Snake:
                 random.randint(0, self.height - 1),
                 random.randint(0, self.width - 1)
             ]
-            if food not in self.snake:
+            if food[0] != self.snake[0][0] or food[1] != self.snake[0][1]:
                 return food
 
     # Check if the game is over
