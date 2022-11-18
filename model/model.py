@@ -10,7 +10,7 @@ class Model(nn.Module):
             nn.Linear(in_features, 10),
             nn.ReLU(),
             nn.Linear(10, 5),
-            nn.Softmax()
+            nn.Softmax(dim=1)
         )
 
     def forward(self, inputs):

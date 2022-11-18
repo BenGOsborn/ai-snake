@@ -9,6 +9,7 @@ class Trainer:
             Agent(height, width) for _ in range(generation_size)
         ]
 
-    # Calculate the fitness of a particular model
-    def fitness(self):
-        pass
+    # Evaluate all agents in the current population
+    def evaluate_population(self):
+        for elem in self.generation:
+            elem.evaluate()
