@@ -2,18 +2,17 @@ import random
 
 
 class Snake:
-    def __init__(self, height, width, seed=0):
+    def __init__(self, height, width):
         self.height = height
         self.width = width
-        self.random = random.Random(seed)
 
         self.terminated = False
 
         # Initialize the snake
         self.snake = [
             [
-                self.random.randint(0, self.height - 1),
-                self.random.randint(0, self.width - 1)
+                random.randint(0, self.height - 1),
+                random.randint(0, self.width - 1)
             ]
         ]
 
@@ -49,8 +48,8 @@ class Snake:
     def select_food(self):
         while True:
             food = [
-                self.random.randint(0, self.height - 1),
-                self.random.randint(0, self.width - 1)
+                random.randint(0, self.height - 1),
+                random.randint(0, self.width - 1)
             ]
             if food[0] != self.snake[0][0] or food[1] != self.snake[0][1]:
                 return food
@@ -80,7 +79,8 @@ class Snake:
             self.terminated = True
             return
 
-        if self.snake[0] in [self.food]:
+        # Check if snake encountered food
+        if self.snake[0][0] == self.food[0] and self.snake[0][1] == self.food[1]:
             self.snake.insert(0, self.food)
             self.food = self.select_food()
 
