@@ -12,9 +12,6 @@ class Agent:
 
         self.fitness = None
 
-    # Set the model
-    def set_model(self, model):
-        self.model = model
         self.model.eval()
 
     # Get the model
