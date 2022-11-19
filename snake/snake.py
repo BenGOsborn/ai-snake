@@ -2,7 +2,7 @@ import random
 
 
 class Snake:
-    def __init__(self, height, width, seed):
+    def __init__(self, height, width, seed=0):
         self.height = height
         self.width = width
         self.random = random.Random(seed)
