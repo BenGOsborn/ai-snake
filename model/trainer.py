@@ -15,6 +15,10 @@ class Trainer:
             Agent(height, width, time_limit) for _ in range(generation_size)
         ]
 
+        # Keep track of the best agent
+        self.best_fitness = -1
+        self.best_agent = None
+
     # Evaluate all agents in the current population
     def evaluate_population(self):
         for elem in self.generation:
@@ -51,6 +55,10 @@ class Trainer:
         child = Agent(self.height, self.width, self.time_limit)
         child.model.load_state_dict(new_genes)
 
+    # Save the highest fitness agent
+    def save_best_agent(self, file):
+        pass
+
     # Create the next generation
     def create_next_generation(self):
         # Select from distribution based on fitness
@@ -58,9 +66,14 @@ class Trainer:
             [agent.fitness for agent in self.generation],
             dtype=torch.float
         )
-        print(fitness)
         probs = torch.softmax(fitness, dim=0)
         distribution = torch.distributions.categorical.Categorical(probs=probs)
+
+        # Update the best agent
+        argmax = torch.argmax(fitness)
+        if fitness[argmax] > self.best_fitness:
+            self.best_fitness = fitness[argmax]
+            self.best_agent = self.generation[argmax]
 
         # Breed fit agents to create new generation
         new_generation = []
