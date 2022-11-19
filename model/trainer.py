@@ -44,10 +44,10 @@ class Trainer:
             rand_mask = 2 * torch.rand(state1[key].shape) - 1
 
             genes1 = (rand_mask <= mutation_bound[0]) * state1[key]
-            genes2 = (rand_mask >= mutation_bound[1]) * state2[key]
+            genes2 = (rand_mask > mutation_bound[1]) * state2[key]
             genes_mutation = (
                 (rand_mask > mutation_bound[0]) & (
-                    rand_mask < mutation_bound[1])
+                    rand_mask <= mutation_bound[1])
             ) * (2 * torch.rand(state1[key].shape) - 1)
 
             genes = genes1 + genes2 + genes_mutation
