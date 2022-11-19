@@ -86,9 +86,6 @@ class Snake:
 
         pos = (self.snake[0][0] + mvmnt[0], self.snake[0][1] + mvmnt[1])
 
-        # **** SOMETHING IS BROKEN IN REGARD TO THIS UPDATE STATE FUNCTION - WHY ???
-        print(pos, self.snake)
-
         # Update position of snake
         if not self.is_valid_position(pos[0], pos[1]):
             self.terminated = True
