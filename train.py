@@ -7,7 +7,8 @@ def main():
         utils.AI_HEIGHT,
         utils.AI_WIDTH,
         utils.GENERATION_SIZE,
-        utils.MUTATION_CHANCE
+        utils.MUTATION_CHANCE,
+        utils.TRAINING_TIME_LIMIT,
     )
 
     # trainer.evaluate_population()
