@@ -35,3 +35,6 @@ class Agent:
 
         # Calculate score of agent
         self.fitness = len(self.snake.snake)
+
+        if len(self.snake.snake) > 2:
+            print(self.snake.snake)

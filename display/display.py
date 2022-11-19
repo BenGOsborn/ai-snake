@@ -17,8 +17,10 @@ class Display:
             self.stdscr.addch(body[0], body[1], curses.ACS_BLOCK)
 
         # Draw food
-        self.stdscr.addch(self.snake.food[0],
-                          self.snake.food[1], curses.ACS_PI)
+        self.stdscr.addch(
+            self.snake.food[0],
+            self.snake.food[1], curses.ACS_PI
+        )
 
         # Draw border Y
         for i in range(self.snake.height):

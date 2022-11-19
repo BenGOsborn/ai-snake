@@ -13,8 +13,6 @@ def main():
         utils.TRAINING_TIME_LIMIT,
     )
 
-    prev_best = -1
-
     # Create N generations
     for i in range(utils.GENERATIONS):
         trainer.evaluate_population()
@@ -28,7 +26,6 @@ def main():
     print(f"Finished - saving to '{utils.MODEL_PATH}'...")
 
     trainer.save_best_agent(utils.MODEL_PATH)
-    prev_best = current_best
 
 
 if __name__ == "__main__":
