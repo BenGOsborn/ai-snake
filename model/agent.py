@@ -43,5 +43,4 @@ class Agent:
 
             self.snake.reset()
 
-        self.fitness = max(fitness) * 5 - sum(deaths) * \
-            1 - (sum(steps) / len(steps)) * 0.1
+        self.fitness = utils.fitness(fitness, deaths, steps)
