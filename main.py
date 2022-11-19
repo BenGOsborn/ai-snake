@@ -14,7 +14,7 @@ def main(stdscr):
     display = Display(snake, stdscr)
 
     model = Model()
-    model.load_state_dict(torch.load(utils.MODEL_PATH))
+    model.load_state_dict(torch.load(utils.MODEL_PATH_NEAT))
     model.eval()
 
     # Game loop
