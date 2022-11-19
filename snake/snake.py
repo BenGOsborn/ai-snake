@@ -1,23 +1,29 @@
-import random
-
-
 class Snake:
-    def __init__(self, height, width):
+    def __init__(self, height, width, seed):
         self.height = height
         self.width = width
+
+        self.seed = seed
 
         self.terminated = False
 
         self.snake = [
             [
-                random.randint(0, self.height - 1),
-                random.randint(0, self.width - 1)
+                self.randint(self.height),
+                self.randint(self.width)
             ]
         ]
 
         self.dir = [0, 1]  # Current direction of travel
 
         self.food = self.select_food()
+
+    # Get a pseudorandom integer
+    def randint(self, size):
+        hash_value = hash(self.seed)
+        self.seed += 1
+
+        return hash_value % size
 
     # Get the game board
     def get_game_state(self):
@@ -35,8 +41,8 @@ class Snake:
     def select_food(self):
         while True:
             food = [
-                random.randint(0, self.height - 1),
-                random.randint(0, self.width - 1)
+                self.randint(self.height),
+                self.randint(self.width)
             ]
             if food[0] != self.snake[0][0] or food[1] != self.snake[0][1]:
                 return food
