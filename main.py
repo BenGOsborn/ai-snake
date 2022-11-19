@@ -21,7 +21,7 @@ def main(stdscr):
     while True:
         input_key = choose_key(snake.get_game_state(), model)
 
-        snake.update_state(key=input_key)
+        snake.update_state(input_key)
         if snake.game_over():
             break
 
