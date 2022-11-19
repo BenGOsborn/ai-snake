@@ -17,7 +17,7 @@ def main():
         trainer.create_next_generation()
 
         if i % 5 == 0:
-            print(f"i == {i} - highest fitness == {trainer.highest_fitness}")
+            print(f"i == {i} - best fitness == {trainer.best_fitness}")
 
 
 if __name__ == "__main__":
