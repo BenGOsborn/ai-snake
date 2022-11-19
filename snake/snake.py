@@ -80,7 +80,6 @@ class Snake:
             self.terminated = True
             return
 
-        # Check for food and grow the snake else update snake position
         if self.snake[0] in [self.food]:
             self.snake.insert(0, self.food)
             self.food = self.select_food()

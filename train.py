@@ -20,7 +20,7 @@ def main():
         trainer.evaluate_population()
         trainer.create_next_generation()
 
-        if (i + 1) % 5 == 0:
+        if i % 5 == 0:
             current_best = trainer.best_fitness
 
             print(f"i == {i} - best fitness == {current_best}")
