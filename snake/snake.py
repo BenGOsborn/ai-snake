@@ -68,8 +68,6 @@ class Snake:
             raise Exception("Game has finished")
 
         # Update snake position
-        mvmnt = None
-
         if key == 0:
             mvmnt = [-1, 0]  # Up
         elif key == 1:
