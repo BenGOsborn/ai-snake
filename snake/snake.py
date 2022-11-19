@@ -66,7 +66,7 @@ class Snake:
 
     # Check if a position is accessible
     def is_valid_position(self, y, x):
-        return not ([y, x] in self.snake or y in [-1, self.height] or x in [-1, self.width])
+        return not ((y, x) in self.snake or y in [-1, self.height] or x in [-1, self.width])
 
     # Update the state of the game
     def update_state(self, key):

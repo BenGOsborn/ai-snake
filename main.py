@@ -51,5 +51,5 @@ def main_noscrn():
 
 
 if __name__ == "__main__":
-    curses.wrapper(main)
-    # main_noscrn()
+    # curses.wrapper(main)
+    main_noscrn()
