@@ -3,7 +3,12 @@ import utils
 
 
 def main():
-    trainer = Trainer(utils.AI_HEIGHT, utils.AI_WIDTH, utils.GENERATION_SIZE)
+    trainer = Trainer(
+        utils.AI_HEIGHT,
+        utils.AI_WIDTH,
+        utils.GENERATION_SIZE,
+        utils.MUTATION_CHANCE
+    )
 
     trainer.evaluate_population()
 
