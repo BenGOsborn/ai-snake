@@ -2,14 +2,13 @@ import torch.nn as nn
 
 
 class Model(nn.Module):
-    def __init__(self, in_features):
+    def __init__(self):
         super().__init__()
 
         self.network = nn.Sequential(
-            nn.Flatten(),
-            nn.Linear(in_features, 10),
+            nn.Linear(8, 10),
             nn.ReLU(),
-            nn.Linear(10, 5),
+            nn.Linear(10, 4),
             nn.Softmax(dim=1)
         )
 

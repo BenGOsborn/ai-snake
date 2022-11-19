@@ -11,6 +11,4 @@ def choose_key(snake_game_state, model):
     with torch.no_grad():
         probs = model(inputs)
 
-    pos = torch.argmax(probs).item()
-
-    return pos if pos != 4 else None  # 4th index is no move
+    return torch.argmax(probs).item()

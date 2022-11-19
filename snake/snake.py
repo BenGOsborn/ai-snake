@@ -1,48 +1,45 @@
+import random
+
+
 class Snake:
     def __init__(self, height, width, seed):
         self.height = height
         self.width = width
-
-        self.seed = seed
+        self.random = random.Random(seed)
 
         self.terminated = False
 
+        # Initialize the snake
         self.snake = [
             [
-                self.randint(self.height),
-                self.randint(self.width)
+                self.random.randint(0, self.height - 1),
+                self.random.randint(0, self.width - 1)
             ]
         ]
 
-        self.dir = [0, 1]  # Current direction of travel
+        # Current direction of travel
+        self.dir = [0, 1]
 
+        # Initialize food
         self.food = self.select_food()
 
-    # Get a pseudorandom integer
-    def randint(self, size):
-        hash_value = hash(self.seed)
-        self.seed += 1
-
-        return hash_value % size
-
-    # Get the game board
+    # Get the game state
     def get_game_state(self):
-        board = [[0 for _ in range(self.width)] for _ in range(self.height)]
+        state = []
 
-        for y, x in self.snake[1:]:
-            board[y][x] = 0.5
+        # Get the distance to food and accessibility of each direction
+        for y, x in [[-1, 0], [1, 0], [0, -1], [0, 1]]:
+            state.append
+            pass
 
-        board[self.snake[0][0]][self.snake[0][1]] = 1
-        board[self.food[0]][self.food[1]] = -1
-
-        return board
+        return state
 
     # Select a random location for food
     def select_food(self):
         while True:
             food = [
-                self.randint(self.height),
-                self.randint(self.width)
+                self.random.randint(0, self.height - 1),
+                self.random.randint(0, self.width - 1)
             ]
             if food[0] != self.snake[0][0] or food[1] != self.snake[0][1]:
                 return food
@@ -50,6 +47,10 @@ class Snake:
     # Check if the game is over
     def game_over(self):
         return self.terminated
+
+    # Check if a position is accessible
+    def is_valid_position(self, y, x):
+        return not ([y, x] in self.snake or y in [-1, self.height] or x in [-1, self.width])
 
     # Update the state of the game
     def update_state(self, key=None):
@@ -64,22 +65,21 @@ class Snake:
         self.snake.pop(-1)
 
         # Check for collision / out of bounds
-        if self.snake[0] in self.snake[1:] or self.snake[0][0] in [-1, self.height] or self.snake[0][1] in [-1, self.width]:
+        if not self.is_valid_position(self.snake[0], self.snake[1]):
             self.terminated = True
             return
 
         # Check for food and grow the snake else update snake position
-        if self.snake[0][0] == self.food[0] and self.snake[0][1] == self.food[1]:
+        if self.snake[0] in [self.food]:
             self.snake.insert(0, self.food)
             self.food = self.select_food()
 
         # Update snake position
-        if key is not None:
-            if key == 0:
-                self.dir = [-1, 0]  # Up
-            elif key == 1:
-                self.dir = [1, 0]  # Down
-            elif key == 2:
-                self.dir = [0, -1]  # Left
-            elif key == 3:
-                self.dir = [0, 1]  # Right
+        if key == 0:
+            self.dir = [-1, 0]  # Up
+        elif key == 1:
+            self.dir = [1, 0]  # Down
+        elif key == 2:
+            self.dir = [0, -1]  # Left
+        elif key == 3:
+            self.dir = [0, 1]  # Right
