@@ -1,3 +1,5 @@
+import os
+
 from model.trainer import Trainer
 import utils
 

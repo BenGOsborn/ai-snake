@@ -1,0 +1,13 @@
+import os
+
+
+HEIGHT = 30
+WIDTH = 30
+FRAME_RATE = 15
+
+GENERATION_SIZE = 250
+MUTATION_CHANCE = 0.15
+TRAINING_TIME_LIMIT = 1000
+GENERATIONS = 100
+
+MODEL_PATH = os.path.join(os.getcwd(), "bin", "model.pth")
