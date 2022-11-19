@@ -6,15 +6,13 @@ class Snake:
         self.height = height
         self.width = width
 
-        self.random = random.Random(1234)
-
         self.terminated = False
 
         # Initialize the game
         self.snake = [
             (
-                self.random.randint(0, self.height - 1),
-                self.random.randint(0, self.width - 1)
+                random.randint(0, self.height - 1),
+                random.randint(0, self.width - 1)
             )
         ]
         self.food = self.select_food()
@@ -43,7 +41,7 @@ class Snake:
 
     # Select a random location for food
     def select_food(self):
-        return self.random.randint(0, self.height - 1), self.random.randint(0, self.width - 1)
+        return random.randint(0, self.height - 1), random.randint(0, self.width - 1)
 
     # Check if the game is over
     def game_over(self):
