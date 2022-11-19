@@ -8,11 +8,13 @@ class Snake:
 
         self.terminated = False
 
+        self.random = random.Random(1234)
+
         # Initialize the snake
         self.snake = [
             (
-                random.randint(0, self.height - 1),
-                random.randint(0, self.width - 1)
+                self.random.randint(0, self.height - 1),
+                self.random.randint(0, self.width - 1)
             )
         ]
 
@@ -48,8 +50,8 @@ class Snake:
     def select_food(self):
         while True:
             food = [
-                random.randint(0, self.height - 1),
-                random.randint(0, self.width - 1)
+                self.random.randint(0, self.height - 1),
+                self.random.randint(0, self.width - 1)
             ]
             if food[0] != self.snake[0][0] or food[1] != self.snake[0][1]:
                 return food
