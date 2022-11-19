@@ -10,7 +10,8 @@ def main():
         utils.MUTATION_CHANCE
     )
 
-    trainer.evaluate_population()
+    # trainer.evaluate_population()
+    trainer.create_next_generation()
 
 
 if __name__ == "__main__":

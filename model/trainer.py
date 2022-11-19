@@ -19,10 +19,15 @@ class Trainer:
 
     # Breed two agents together
     def breed(self, agent1, agent2):
-        pass
+        # **** We will create a mask where if it is true we will select state 1 and if it is false we will select state 2
+        # **** Then we will create a second mask which will be for a completely random weight (mutation)
+
+        state1 = agent1.model.state_dict()
+        state2 = agent2.model.state_dict()
+
+        for key in state1:
+            print(key)
 
     # Create the next generation
     def create_next_generation(self):
-        # **** We'll evaluate this using NN module
-
-        pass
+        self.breed(self.generation[0], self.generation[1])
