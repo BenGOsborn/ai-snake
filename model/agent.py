@@ -19,6 +19,8 @@ class Agent:
     def evaluate(self):
         # Evaluate performance over n evaluations
         fitness = []
+        deaths = []
+        steps = []
 
         for _ in range(self.evaluations):
             time = 0
@@ -36,7 +38,10 @@ class Agent:
             # Calculate score of agent
             fitness_score = len(self.snake.snake)
             fitness.append(fitness_score)
+            deaths.append(1 if self.snake.game_over() else 0)
+            steps.append(time)
 
             self.snake.reset()
 
-        self.fitness = sum(fitness) / len(fitness)
+        self.fitness = max(fitness) * 5 - sum(deaths) * \
+            0.15 - (sum(steps) / len(steps)) * 0.1
