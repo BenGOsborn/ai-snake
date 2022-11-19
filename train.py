@@ -6,8 +6,8 @@ import utils
 
 def main():
     trainer = Trainer(
-        utils.AI_HEIGHT,
-        utils.AI_WIDTH,
+        utils.HEIGHT,
+        utils.WIDTH,
         utils.GENERATION_SIZE,
         utils.MUTATION_CHANCE,
         utils.TRAINING_TIME_LIMIT,

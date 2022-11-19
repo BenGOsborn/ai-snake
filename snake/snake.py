@@ -27,10 +27,24 @@ class Snake:
     def get_game_state(self):
         state = []
 
+        standardized_distance = (self.height ** 2 + self.width ** 2) ** (1/2)
+        food_y, food_x = self.food
+
         # Get the distance to food and accessibility of each direction
         for y, x in [[-1, 0], [1, 0], [0, -1], [0, 1]]:
-            state.append
-            pass
+            y += self.snake[0][0]
+            x += self.snake[0][1]
+
+            is_available = 1 if self.is_valid_position(y, x) else 0
+            state.append(is_available)
+
+            if is_available == 0:
+                print("IT IS ZERO")
+
+            food_distance = (
+                ((y - food_y) ** 2 + (x - food_x) ** 2) ** (1/2)
+            ) / standardized_distance
+            state.append(food_distance)
 
         return state
 
@@ -65,7 +79,7 @@ class Snake:
         self.snake.pop(-1)
 
         # Check for collision / out of bounds
-        if not self.is_valid_position(self.snake[0], self.snake[1]):
+        if not self.is_valid_position(self.snake[0][0], self.snake[0][1]):
             self.terminated = True
             return
 
