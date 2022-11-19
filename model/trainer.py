@@ -4,12 +4,11 @@ from model.agent import Agent
 
 
 class Trainer:
-    def __init__(self, height, width, generation_size, mutation_chance, evaluations, time_limit):
+    def __init__(self, height, width, generation_size, mutation_chance, time_limit):
         self.height = height
         self.width = width
         self.generation_size = generation_size
         self.mutation_chance = mutation_chance
-        self.evaluations = evaluations
         self.time_limit = time_limit
 
         # Keep track of the best agent
@@ -18,7 +17,7 @@ class Trainer:
 
         # Initialize generation
         self.generation = [
-            Agent(height, width, evaluations, time_limit) for _ in range(generation_size)
+            Agent(height, width, time_limit) for _ in range(generation_size)
         ]
 
     # Evaluate all agents in the current population
@@ -57,7 +56,6 @@ class Trainer:
         child = Agent(
             self.height,
             self.width,
-            self.evaluations,
             self.time_limit
         )
         child.model.load_state_dict(new_genes)
