@@ -47,9 +47,24 @@ class Trainer:
             genes = genes1 + genes2 + genes_mutation
             new_genes[key] = genes
 
+        # Create new child with new genes
         child = Agent(self.height, self.width, self.time_limit)
         child.model.load_state_dict(new_genes)
 
     # Create the next generation
     def create_next_generation(self):
-        self.breed(self.generation[0], self.generation[1])
+        fitness = torch.tensor(
+            [agent.fitness for agent in self.generation],
+            dtype=torch.float
+        )
+        probs = torch.softmax(fitness, dim=0)
+
+        distribution = torch.distributions.categorical.Categorical(probs=probs)
+
+        new_generation = []
+        for _ in range(self.generation_size):
+            parent1, parent2 = distribution.sample_n(2).tolist()
+
+            print(parent1, parent2)
+
+        # self.breed(self.generation[0], self.generation[1])

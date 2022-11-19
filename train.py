@@ -11,7 +11,7 @@ def main():
         utils.TRAINING_TIME_LIMIT,
     )
 
-    # trainer.evaluate_population()
+    trainer.evaluate_population()
     trainer.create_next_generation()
 
 
