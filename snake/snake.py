@@ -38,9 +38,6 @@ class Snake:
             is_available = 1 if self.is_valid_position(y, x) else 0
             state.append(is_available)
 
-            if is_available == 0:
-                print("IT IS ZERO")
-
             food_distance = (
                 ((y - food_y) ** 2 + (x - food_x) ** 2) ** (1/2)
             ) / standardized_distance
