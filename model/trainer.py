@@ -13,3 +13,4 @@ class Trainer:
     def evaluate_population(self):
         for elem in self.generation:
             elem.evaluate()
+            print(elem.fitness)

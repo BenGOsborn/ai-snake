@@ -15,6 +15,7 @@ class Agent:
     def evaluate(self):
         time = 0
 
+        # Complete game loop
         while not self.snake.game_over() and time < self.time_limit:
             key = self.brain.choose_key()
 
@@ -22,4 +23,5 @@ class Agent:
 
             time += 1
 
-        self.fitness = len(self.snake.snake) / time
+        # Calculate score of agent
+        self.fitness = len(self.snake.snake)
