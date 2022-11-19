@@ -1,4 +1,5 @@
 import torch
+import threading
 
 from model.agent import Agent
 
@@ -23,8 +24,15 @@ class Trainer:
 
     # Evaluate all agents in the current population
     def evaluate_population(self):
+        threads = []
+
         for elem in self.generation:
-            elem.evaluate()
+            t = threading.Thread(target=lambda x: x.evaluate(), args=(elem,))
+            t.start()
+            threads.append(t)
+
+        for t in threads:
+            t.join()
 
     # Breed two agents together
     def breed(self, agent1, agent2):
