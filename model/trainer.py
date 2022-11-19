@@ -11,15 +11,15 @@ class Trainer:
         self.height = height
         self.width = width
 
-        self.generation = 0
-
         # Keep track of the best agent
         self.best_fitness = -1
         self.best_agent = None
 
-        # Initialize generatio
+        # Initialize generation
+        self.generation = 0
+
         self.generation = [
-            Agent(height, width, time_limit, self.seed) for _ in range(generation_size)
+            Agent(height, width, time_limit, self.generation) for _ in range(generation_size)
         ]
         self.generation += 1
 
