@@ -6,11 +6,18 @@ class Snake:
         self.height = height
         self.width = width
 
-        self.terminated = False
-
         self.random = random.Random(1)
 
-        # Initialize the snake
+        self.terminated = False
+
+        self.snake = None
+        self.food = None
+
+        # Initialize the game
+        self.reset()
+
+    # Reset the current game state
+    def reset(self):
         self.snake = [
             (
                 self.random.randint(0, self.height - 1),

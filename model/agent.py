@@ -4,7 +4,7 @@ import model.utils as utils
 
 
 class Agent:
-    def __init__(self, height, width, time_limit):
+    def __init__(self, height, width, evaluations, time_limit):
         self.time_limit = time_limit
 
         self.snake = Snake(height, width)
@@ -17,6 +17,10 @@ class Agent:
     # Get the model
     def get_model(self):
         return self.model
+
+    # Get the fitness
+    def calc_fitness(self):
+        return len(self.snake.snake)
 
     # Evaluate the current agent
     def evaluate(self):
@@ -34,7 +38,4 @@ class Agent:
             time += 1
 
         # Calculate score of agent
-        self.fitness = len(self.snake.snake)
-
-        if len(self.snake.snake) > 2:
-            print(self.snake.snake)
+        self.fitness = self.calc_fitness()
