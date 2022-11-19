@@ -1,3 +1,6 @@
+import os
+
+
 USER_HEIGHT = 30
 USER_WIDTH = 50
 
@@ -10,3 +13,5 @@ GENERATION_SIZE = 250
 MUTATION_CHANCE = 0.1
 TRAINING_TIME_LIMIT = 1000
 GENERATIONS = 100
+
+MODEL_PATH = os.path.join(os.getcwd(), "bin", "model.pth")

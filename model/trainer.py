@@ -59,8 +59,8 @@ class Trainer:
         return child
 
     # Save the highest fitness agent
-    def save_best_agent(self, file):
-        pass
+    def save_best_agent(self, path):
+        torch.save(self.best_agent.get_model().state_dict(), path)
 
     # Create the next generation
     def create_next_generation(self):
