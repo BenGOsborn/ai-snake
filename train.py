@@ -25,11 +25,10 @@ def main():
 
             print(f"i == {i} - best fitness == {current_best}")
 
-            if current_best > prev_best:
-                print(f"Saving to '{utils.MODEL_PATH}'...")
+    print(f"Finished - saving to '{utils.MODEL_PATH}'...")
 
-                trainer.save_best_agent(utils.MODEL_PATH)
-                prev_best = current_best
+    trainer.save_best_agent(utils.MODEL_PATH)
+    prev_best = current_best
 
 
 if __name__ == "__main__":

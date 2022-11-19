@@ -8,7 +8,7 @@ class Snake:
 
         self.terminated = False
 
-        self.random = random.Random(1234)
+        self.random = random.Random(1)
 
         # Initialize the snake
         self.snake = [
