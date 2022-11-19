@@ -18,9 +18,6 @@ class Snake:
             )
         ]
 
-        # Current direction of travel
-        self.dir = [0, 1]
-
         # Initialize food
         self.food = self.select_food()
 
@@ -65,16 +62,27 @@ class Snake:
         return not ([y, x] in self.snake or y in [-1, self.height] or x in [-1, self.width])
 
     # Update the state of the game
-    def update_state(self, key=None):
+    def update_state(self, key):
         # Check if the game has finished
         if self.game_over():
             raise Exception("Game has finished")
 
+        # Update snake position
+        mvmnt = None
+
+        if key == 0:
+            mvmnt = [-1, 0]  # Up
+        elif key == 1:
+            mvmnt = [1, 0]  # Down
+        elif key == 2:
+            mvmnt = [0, -1]  # Left
+        elif key == 3:
+            mvmnt = [0, 1]  # Right
+
         # Update position of snake
         self.snake.insert(
-            0, (self.snake[0][0] + self.dir[0], self.snake[0][1] + self.dir[1])
+            0, (self.snake[0][0] + mvmnt[0], self.snake[0][1] + mvmnt[1])
         )
-        self.snake.pop(-1)
 
         # Check for collision / out of bounds
         if not self.is_valid_position(self.snake[0][0], self.snake[0][1]):
@@ -83,15 +91,6 @@ class Snake:
 
         # Check if snake encountered food
         if self.snake[0][0] == self.food[0] and self.snake[0][1] == self.food[1]:
-            self.snake.insert(0, self.food)
             self.food = self.select_food()
-
-        # Update snake position
-        if key == 0:
-            self.dir = [-1, 0]  # Up
-        elif key == 1:
-            self.dir = [1, 0]  # Down
-        elif key == 2:
-            self.dir = [0, -1]  # Left
-        elif key == 3:
-            self.dir = [0, 1]  # Right
+        else:
+            self.snake.pop(-1)
