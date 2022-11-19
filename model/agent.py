@@ -4,10 +4,10 @@ import model.utils as utils
 
 
 class Agent:
-    def __init__(self, height, width, time_limit):
+    def __init__(self, height, width, time_limit, seed):
         self.time_limit = time_limit
 
-        self.snake = Snake(height, width)
+        self.snake = Snake(height, width, seed)
         self.model = Model(height * width)
 
         self.fitness = None
