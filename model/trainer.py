@@ -58,6 +58,7 @@ class Trainer:
             [agent.fitness for agent in self.generation],
             dtype=torch.float
         )
+        print(fitness)
         probs = torch.softmax(fitness, dim=0)
         distribution = torch.distributions.categorical.Categorical(probs=probs)
 
