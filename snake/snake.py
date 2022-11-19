@@ -85,6 +85,8 @@ class Snake:
             self.food = self.select_food()
 
         # Update snake position
+        print(key)
+
         if key == 0:
             self.dir = [-1, 0]  # Up
         elif key == 1:
