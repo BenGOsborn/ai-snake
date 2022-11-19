@@ -65,6 +65,8 @@ class Trainer:
         for _ in range(self.generation_size):
             parent1, parent2 = distribution.sample_n(2).tolist()
 
-            print(parent1, parent2)
-
-        # self.breed(self.generation[0], self.generation[1])
+            child = self.breed(
+                self.generation[parent1],
+                self.generation[parent2]
+            )
+            new_generation.append(child)
