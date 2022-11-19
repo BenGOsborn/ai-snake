@@ -16,12 +16,12 @@ class Trainer:
         self.best_agent = None
 
         # Initialize generation
-        self.generation = 0
+        self.gen_num = 0
 
         self.generation = [
-            Agent(height, width, time_limit, self.generation) for _ in range(generation_size)
+            Agent(height, width, time_limit, self.gen_num) for _ in range(generation_size)
         ]
-        self.generation += 1
+        self.gen_num += 1
 
     # Evaluate all agents in the current population
     def evaluate_population(self):
@@ -60,7 +60,7 @@ class Trainer:
             self.height,
             self.width,
             self.time_limit,
-            self.generation
+            self.gen_num
         )
         child.get_model().load_state_dict(new_genes)
 
@@ -98,4 +98,4 @@ class Trainer:
             new_generation.append(child)
 
         self.generation = new_generation
-        self.generation += 1
+        self.gen_num += 1
