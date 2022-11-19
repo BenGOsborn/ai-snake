@@ -64,7 +64,7 @@ class Trainer:
         # Breed fit agents to create new generation
         new_generation = []
         for _ in range(self.generation_size):
-            parent1, parent2 = distribution.sample_n(2).tolist()
+            parent1, parent2 = distribution.sample((2,)).tolist()
 
             child = self.breed(
                 self.generation[parent1],
