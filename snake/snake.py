@@ -40,8 +40,8 @@ class Snake:
             y += self.snake[0][0]
             x += self.snake[0][1]
 
-            is_available = 1 if self.is_valid_position(y, x) else 0
-            state.append(is_available)
+            valid_pos = 1 if self.is_valid_position(y, x) else 0
+            state.append(valid_pos)
 
             food_distance = (
                 ((y - food_y) ** 2 + (x - food_x) ** 2) ** (1/2)
@@ -85,8 +85,7 @@ class Snake:
             mvmnt = [0, 1]  # Right
 
         pos = (self.snake[0][0] + mvmnt[0], self.snake[0][1] + mvmnt[1])
-
-        print(pos)
+        print(pos, self.snake)
 
         # Update position of snake
         if not self.is_valid_position(pos[0], pos[1]):

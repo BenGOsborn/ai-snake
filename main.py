@@ -47,6 +47,8 @@ def main_noscrn():
         if snake.game_over():
             break
 
+        sleep(1 / utils.FRAME_RATE)
+
 
 if __name__ == "__main__":
     # curses.wrapper(main)
