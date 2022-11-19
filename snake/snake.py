@@ -10,10 +10,10 @@ class Snake:
 
         # Initialize the snake
         self.snake = [
-            [
+            (
                 random.randint(0, self.height - 1),
                 random.randint(0, self.width - 1)
-            ]
+            )
         ]
 
         # Current direction of travel
@@ -85,8 +85,6 @@ class Snake:
             self.food = self.select_food()
 
         # Update snake position
-        print(key)
-
         if key == 0:
             self.dir = [-1, 0]  # Up
         elif key == 1:
