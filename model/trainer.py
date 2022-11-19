@@ -26,8 +26,8 @@ class Trainer:
 
     # Breed two agents together
     def breed(self, agent1, agent2):
-        state1 = agent1.model.state_dict()
-        state2 = agent2.model.state_dict()
+        state1 = agent1.get_model().state_dict()
+        state2 = agent2.get_model().state_dict()
 
         # Merge genes together randomly
         new_genes = {}
@@ -53,7 +53,8 @@ class Trainer:
 
         # Create new child with new genes
         child = Agent(self.height, self.width, self.time_limit)
-        child.model.load_state_dict(new_genes)
+        child_model = child_model.get_model()
+        child_model.load_state_dict(new_genes)
 
         return child
 

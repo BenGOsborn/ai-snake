@@ -12,10 +12,17 @@ class Agent:
 
         self.fitness = None
 
-    # Evaluate the current agent
-    def evaluate(self):
+    # Set the model
+    def set_model(self, model):
+        self.model = model
         self.model.eval()
 
+    # Get the model
+    def get_model(self):
+        return self.model
+
+    # Evaluate the current agent
+    def evaluate(self):
         time = 0
 
         # Complete game loop
