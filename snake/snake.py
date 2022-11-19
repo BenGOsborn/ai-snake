@@ -77,15 +77,14 @@ class Snake:
         elif key == 3:
             mvmnt = [0, 1]  # Right
 
-        # Check for collision / out of bounds
-        if not self.is_valid_position(self.snake[0][0], self.snake[0][1]):
-            self.terminated = True
-            return
+        pos = (self.snake[0][0] + mvmnt[0], self.snake[0][1] + mvmnt[1])
 
         # Update position of snake
-        self.snake.insert(
-            0, (self.snake[0][0] + mvmnt[0], self.snake[0][1] + mvmnt[1])
-        )
+        if not self.is_valid_position(pos[0], pos[1]):
+            self.terminated = True
+            return
+        else:
+            self.snake.insert(0, pos)
 
         # Check if snake encountered food
         if self.snake[0][0] == self.food[0] and self.snake[0][1] == self.food[1]:
