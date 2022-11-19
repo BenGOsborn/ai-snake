@@ -5,6 +5,7 @@ import model.utils as utils
 
 class Agent:
     def __init__(self, height, width, evaluations, time_limit):
+        self.evaluations = evaluations
         self.time_limit = time_limit
 
         self.snake = Snake(height, width)
@@ -14,28 +15,28 @@ class Agent:
 
         self.model.eval()
 
-    # Get the model
-    def get_model(self):
-        return self.model
-
-    # Get the fitness
-    def calc_fitness(self):
-        return len(self.snake.snake)
-
     # Evaluate the current agent
     def evaluate(self):
-        time = 0
+        # Evaluate performance over n evaluations
+        fitness = []
 
-        # Complete game loop
-        while not self.snake.game_over() and time < self.time_limit:
-            key = utils.choose_key(
-                self.snake.get_game_state(),
-                self.model
-            )
+        for _ in self.evaluations:
+            time = 0
 
-            self.snake.update_state(key)
+            while not self.snake.game_over() and time < self.time_limit:
+                key = utils.choose_key(
+                    self.snake.get_game_state(),
+                    self.model
+                )
 
-            time += 1
+                self.snake.update_state(key)
 
-        # Calculate score of agent
-        self.fitness = self.calc_fitness()
+                time += 1
+
+            # Calculate score of agent
+            fitness_score = len(self.snake.snake)
+            fitness.append(fitness_score)
+
+            self.snake.reset()
+
+        self.fitness = sum(fitness) / len(fitness)

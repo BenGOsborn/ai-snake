@@ -6,7 +6,7 @@ class Snake:
         self.height = height
         self.width = width
 
-        self.random = random.Random(1)
+        self.random = random.Random(1234)
 
         self.terminated = False
 
