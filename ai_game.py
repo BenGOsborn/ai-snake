@@ -1,4 +1,5 @@
 import curses
+import torch
 from time import sleep
 
 from snake.snake import Snake
@@ -13,6 +14,7 @@ def main(stdscr):
     display = Display(snake, stdscr)
 
     model = Model(utils.AI_HEIGHT * utils.AI_WIDTH)
+    model.load_state_dict(torch.load(utils.MODEL_PATH))
     model.eval()
 
     # Game loop
