@@ -14,6 +14,8 @@ class Agent:
 
     # Evaluate the current agent
     def evaluate(self):
+        self.model.eval()
+
         time = 0
 
         # Complete game loop
