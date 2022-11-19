@@ -1,5 +1,6 @@
 from snake.snake import Snake
-from model.brain import Brain
+from model.model import Model
+import model.utils as utils
 
 
 class Agent:
@@ -7,7 +8,7 @@ class Agent:
         self.time_limit = time_limit
 
         self.snake = Snake(height, width)
-        self.brain = Brain(self.snake)
+        self.model = Model(height * width)
 
         self.fitness = None
 
@@ -17,7 +18,10 @@ class Agent:
 
         # Complete game loop
         while not self.snake.game_over() and time < self.time_limit:
-            key = self.brain.choose_key()
+            key = utils.choose_key(
+                self.snake.get_game_state(),
+                self.model
+            )
 
             self.snake.update_state(key)
 

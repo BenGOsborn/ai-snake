@@ -23,4 +23,6 @@ class Trainer:
 
     # Create the next generation
     def create_next_generation(self):
+        # **** We'll evaluate this using NN module
+
         pass
