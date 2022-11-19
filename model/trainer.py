@@ -54,8 +54,12 @@ class Trainer:
             new_genes[key] = genes
 
         # Create new child with new genes
-        child = Agent(self.height, self.width,
-                      self.evaluations, self.time_limit)
+        child = Agent(
+            self.height,
+            self.width,
+            self.evaluations,
+            self.time_limit
+        )
         child.model.load_state_dict(new_genes)
 
         return child

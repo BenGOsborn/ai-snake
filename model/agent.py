@@ -20,7 +20,7 @@ class Agent:
         # Evaluate performance over n evaluations
         fitness = []
 
-        for _ in self.evaluations:
+        for _ in range(self.evaluations):
             time = 0
 
             while not self.snake.game_over() and time < self.time_limit:
