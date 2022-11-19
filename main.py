@@ -23,13 +23,12 @@ def main(stdscr):
 
         snake.update_state(input_key)
         if snake.game_over():
-            break
+            curses.endwin()
+            quit()
 
         display.display()
 
         sleep(1 / utils.FRAME_RATE)
-
-    curses.endwin()
 
 
 if __name__ == "__main__":

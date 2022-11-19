@@ -27,7 +27,7 @@ def main():
             print(f"i == {i} - best fitness == {current_best}")
 
             if current_best > prev_best:
-                print(f"Finished - saving to '{utils.MODEL_PATH}'...")
+                print(f"Saving to '{utils.MODEL_PATH}'...")
 
                 trainer.save_best_agent(utils.MODEL_PATH)
 
