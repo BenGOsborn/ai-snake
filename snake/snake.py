@@ -89,6 +89,7 @@ class Snake:
         # Update position of snake
         if not self.is_valid_position(pos[0], pos[1]):
             self.terminated = True
+            print("TERMINATED")
             return
         else:
             self.snake.insert(0, pos)
