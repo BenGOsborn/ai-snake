@@ -55,6 +55,8 @@ class Trainer:
         child = Agent(self.height, self.width, self.time_limit)
         child.model.load_state_dict(new_genes)
 
+        return child
+
     # Save the highest fitness agent
     def save_best_agent(self, file):
         pass
