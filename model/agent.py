@@ -8,7 +8,7 @@ class Agent:
         self.time_limit = time_limit
 
         self.snake = Snake(height, width, seed)
-        self.model = Model(height * width)
+        self.model = Model()
 
         self.fitness = None
 
