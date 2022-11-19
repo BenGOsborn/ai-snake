@@ -24,7 +24,7 @@ class Trainer:
 
     # Evaluate all agents in the current population
     def evaluate_population(self):
-        pool = ThreadPool(16)
+        pool = ThreadPool(32)
         pool.map(lambda x: x.evaluate(), self.generation)
 
     # Breed two agents together
