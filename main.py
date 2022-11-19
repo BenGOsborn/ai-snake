@@ -32,5 +32,22 @@ def main(stdscr):
     curses.endwin()
 
 
+def main_noscrn():
+    snake = Snake(utils.HEIGHT, utils.WIDTH)
+
+    model = Model()
+    model.load_state_dict(torch.load(utils.MODEL_PATH))
+    model.eval()
+
+    # Game loop
+    while True:
+        input_key = choose_key(snake.get_game_state(), model)
+
+        snake.update_state(input_key)
+        if snake.game_over():
+            break
+
+
 if __name__ == "__main__":
-    curses.wrapper(main)
+    # curses.wrapper(main)
+    main_noscrn()
