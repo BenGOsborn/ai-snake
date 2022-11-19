@@ -12,7 +12,7 @@ class Trainer:
         self.width = width
 
         self.generation = [
-            Agent(height, width) for _ in range(generation_size)
+            Agent(height, width, time_limit) for _ in range(generation_size)
         ]
 
     # Evaluate all agents in the current population
@@ -45,8 +45,7 @@ class Trainer:
             ) * (2 * torch.rand(state1[key].shape) - 1)
 
             genes = genes1 + genes2 + genes_mutation
-
-            new_genes[key] = new_genes
+            new_genes[key] = genes
 
         child = Agent(self.height, self.width, self.time_limit)
         child.model.load_state_dict(new_genes)
