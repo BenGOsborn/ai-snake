@@ -1,5 +1,5 @@
 import torch
-import threading
+from multiprocessing.dummy import Pool as ThreadPool
 
 from model.agent import Agent
 
@@ -24,15 +24,8 @@ class Trainer:
 
     # Evaluate all agents in the current population
     def evaluate_population(self):
-        threads = []
-
-        for elem in self.generation:
-            t = threading.Thread(target=lambda x: x.evaluate(), args=(elem,))
-            t.start()
-            threads.append(t)
-
-        for t in threads:
-            t.join()
+        pool = ThreadPool(100)
+        pool.map(lambda x: x.evaluate(), self.generation)
 
     # Breed two agents together
     def breed(self, agent1, agent2):
