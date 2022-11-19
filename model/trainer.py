@@ -53,14 +53,15 @@ class Trainer:
 
     # Create the next generation
     def create_next_generation(self):
+        # Select from distribution based on fitness
         fitness = torch.tensor(
             [agent.fitness for agent in self.generation],
             dtype=torch.float
         )
         probs = torch.softmax(fitness, dim=0)
-
         distribution = torch.distributions.categorical.Categorical(probs=probs)
 
+        # Breed fit agents to create new generation
         new_generation = []
         for _ in range(self.generation_size):
             parent1, parent2 = distribution.sample_n(2).tolist()
@@ -70,3 +71,5 @@ class Trainer:
                 self.generation[parent2]
             )
             new_generation.append(child)
+
+        self.generation = new_generation
