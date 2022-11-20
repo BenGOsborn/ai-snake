@@ -18,24 +18,24 @@ class Agent:
         time = 0
 
         record = 0
-        eating_times = [0]  # The times the snake ate
+        deaths = 0
         penalty = 0
+        eating_times = [0]  # The times the snake ate
 
         # Run the game loop
         while time < time_limit:
-            # Check if the snake is stuck
-            # **** How do I deal with this periodically ???
-            if (time - eating_times[-1] + 1) % stuck_limit == 0:
-                penalty += 1
-                self.snake.reset()
-                continue
-
             # Choose a key and update the state
             key = utils.choose_key(
                 self.snake.get_state(),
                 self.model
             )
-            self.snake.update_state(key)
+            event, _ = self.snake.update_state(key)
+
+            # Process death event
+            if event == -1:
+                deaths += 1
+            elif event == 1:
+                eating_times.append(time)
 
             # Record the eating times of the snake
             current_food = len(self.snake.snake) - 1
@@ -46,9 +46,12 @@ class Agent:
             # Update the time
             time += 1
 
+            # Check if the snake is stuck
+            if (time - eating_times[-1]) % stuck_limit == 0:
+                penalty += 1
+                self.snake.reset()
+
         # Calculate score of agent
-        record = len(self.snake.snake) - 1
-        deaths = 1 if self.snake.game_over() else 0
         steps = [
             eating_times[i] - eating_times[i - 1] for i in range(1, len(eating_times))
         ]

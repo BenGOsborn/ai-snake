@@ -2,11 +2,11 @@ import random
 
 
 class Snake:
-    def __init__(self, height, width, seed=None):
+    def __init__(self, height, width):
         self.height = height
         self.width = width
 
-        self.random = random.random(seed)
+        self.random = random.Random()
 
         self.snake = None
         self.food = self.food = self.select_position()
