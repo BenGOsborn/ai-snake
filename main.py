@@ -22,14 +22,10 @@ def main(stdscr):
         input_key = choose_key(snake.get_state(), model)
 
         snake.update_state(input_key)
-        if snake.game_over():
-            break
 
         display.display()
 
         sleep(1 / utils.FRAME_RATE)
-
-    curses.endwin()
 
 
 def main_noscrn():
@@ -44,8 +40,6 @@ def main_noscrn():
         input_key = choose_key(snake.get_state(), model)
 
         snake.update_state(input_key)
-        if snake.game_over():
-            break
 
         sleep(1 / utils.FRAME_RATE)
 
