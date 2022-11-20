@@ -23,10 +23,14 @@ class Trainer:
             Agent(self.snake, self.evaluations, time_limit, stuck_limit) for _ in range(generation_size)
         ]
 
-    # Evaluate all agents in the current population
+    # Evaluate all agents in the current population and get the current average and max fitness
     def evaluate_population(self):
         for agent in self.generation:
             agent.evaluate()
+
+        fitness = [elem.fitness for elem in self.generation]
+
+        return sum(fitness) / len(fitness), max(fitness)
 
     # Breed two agents together
     def breed(self, agent1, agent2):
