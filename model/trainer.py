@@ -88,8 +88,9 @@ class Trainer:
 
         new_generation = [
             self.generation[x[0]] for x in sorted(
-                [(i, agent.fitness)
-                 for i, agent in enumerate(self.generation)],
+                [
+                    (i, agent.fitness) for i, agent in enumerate(self.generation)
+                ],
                 reverse=True,
                 key=lambda x: x[1]
             )[:self.top_agents]
