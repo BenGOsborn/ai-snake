@@ -30,7 +30,7 @@ class Trainer:
         for agent in self.generation:
             agent.evaluate()
 
-        fitness = [elem.fitness for elem in self.generation]
+        fitness = [elem.fitness for elem in self.generation][:self.top_agents]
 
         return mean(fitness), max(fitness)
 
