@@ -61,6 +61,8 @@ class Snake:
 
             state.append(self.position_value(y, x))
 
+            print(self.position_value(y, x), (y, x))
+
             food_distance = max(
                 [
                     (((y - food_y) ** 2 + (x - food_x) ** 2) ** (1/2)) / standardized_distance for food_x, food_y in self.food
