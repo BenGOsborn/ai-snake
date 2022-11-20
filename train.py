@@ -1,21 +1,25 @@
+from snake.snake import Snake
 from model.trainer import Trainer
 import utils
 
 
 def main():
+    # Initialize
+    snake = Snake(utils.HEIGHT, utils.WIDTH)
+
     trainer = Trainer(
-        utils.HEIGHT,
-        utils.WIDTH,
+        snake,
         utils.GENERATION_SIZE,
+        utils.TOP_AGENTS,
         utils.MUTATION_CHANCE,
         utils.EVALUATIONS,
         utils.TRAINING_TIME_LIMIT,
         utils.STUCK_LIMIT,
     )
 
+    # Train for N generations
     prev_global_best = -1
 
-    # Create N generations
     for i in range(utils.GENERATIONS):
         gen_avg, gen_best = trainer.evaluate_population()
         trainer.create_next_generation()

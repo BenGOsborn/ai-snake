@@ -1,18 +1,18 @@
 import torch
 
 from model.agent import Agent
-from snake.snake import Snake
 
 
 class Trainer:
-    def __init__(self, height, width, generation_size, mutation_chance, evaluations, time_limit, stuck_limit):
+    def __init__(self, snake, generation_size, top_agents, mutation_chance, evaluations, time_limit, stuck_limit):
         self.generation_size = generation_size
+        self.top_agents = top_agents
         self.mutation_chance = mutation_chance
         self.evaluations = evaluations
         self.time_limit = time_limit
         self.stuck_limit = stuck_limit
 
-        self.snake = Snake(height, width)
+        self.snake = snake
 
         # Keep track of the best agent
         self.best_fitness = -1
@@ -76,7 +76,7 @@ class Trainer:
 
     # Create the next generation
     def create_next_generation(self):
-        # Select from distribution based on fitness
+        # Select the best performing agents
         fitness = torch.tensor(
             [agent.fitness for agent in self.generation],
             dtype=torch.float
