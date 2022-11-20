@@ -70,6 +70,8 @@ class Agent:
             # Reset the snake
             self.snake.reset()
 
+        # **** AFTER THIS I WANT TO OPTIMIZE THE AVERAGE SCORE INSTEAD OF THE BEST SCORE
+
         # Calculate and update the agents fitness
         self.fitness = record * 8 - deaths * 2 - penalties * 2
         self.fitness = self.fitness - \
