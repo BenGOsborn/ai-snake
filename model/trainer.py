@@ -95,7 +95,7 @@ class Trainer:
             )
 
             new_generation.append(child)  # Add the new child
-            new_generation.append(parent1)  # Add the parent
+            new_generation.append(self.generation[parent1])  # Add the parent
 
         for _ in range(len(self.generation) - len(new_generation)):
             # Add random genes to the pool
