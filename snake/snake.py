@@ -23,6 +23,7 @@ class Snake:
             )
         ]
         self.food = self.select_food()
+        self.terminated = False
 
     # Get the game state
     def get_game_state(self):

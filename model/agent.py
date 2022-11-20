@@ -31,15 +31,16 @@ class Agent:
 
             # Run the game loop
             while not self.snake.game_over() and time < self.time_limit:
+                # Check if the snake is stuck
                 if time - eating_times[-1] == self.stuck_limit:
                     penalty = 1
                     break
 
+                # Choose a key and update the state
                 key = utils.choose_key(
                     self.snake.get_game_state(),
                     self.model
                 )
-
                 self.snake.update_state(key)
 
                 # Record the eating times of the snake
@@ -48,6 +49,7 @@ class Agent:
                     eating_times.append(time)
                     prev_size = current_size
 
+                # Update the time
                 time += 1
 
             # Calculate score of agent
