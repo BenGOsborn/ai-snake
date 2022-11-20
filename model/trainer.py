@@ -34,7 +34,7 @@ class Trainer:
 
         # Mutate all genes
         for key in state:
-            rand1 = 2 * torch.rand(state[key].shape) - 1
+            rand1 = torch.rand(state[key].shape)
             rand2 = 2 * torch.rand(state[key].shape) - 1
 
             original = (rand1 >= self.mutation_chance) * state[key]
