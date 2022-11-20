@@ -32,10 +32,10 @@ class Trainer:
 
         fitness = sorted(
             [elem.fitness for elem in self.generation],
-            reversed=True
+            reverse=True
         )[:self.top_agents]
 
-        return mean(fitness), max(fitness)
+        return mean(fitness), fitness[0]
 
     # Breed two agents together
     def breed(self, agent1, agent2):
