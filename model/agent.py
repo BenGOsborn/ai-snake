@@ -79,6 +79,6 @@ class Agent:
 
         # Calculate and update the agents fitness
         self.fitness = record * 5
-        self.fitness = self.fitness - deaths * 2 - penalty * 2
+        self.fitness = self.fitness - deaths * 0.15 - penalty
         self.fitness = self.fitness - \
-            (sum(steps) / len(steps)) * 0.5 if len(steps) > 0 else self.fitness
+            (sum(steps) / len(steps)) * 0.1 if len(steps) > 0 else self.fitness
