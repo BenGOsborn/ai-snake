@@ -1,4 +1,3 @@
-from statistics import mean
 import torch
 
 from model.model import Model
@@ -29,13 +28,6 @@ class Trainer:
     def evaluate_population(self):
         for agent in self.generation:
             agent.evaluate()
-
-        fitness = sorted(
-            [elem.fitness for elem in self.generation],
-            reverse=True
-        )[:self.top_agents]
-
-        return mean(fitness), fitness[0]
 
     # Breed two agents together
     def breed(self, agent1, agent2):
@@ -91,8 +83,13 @@ class Trainer:
         )
         values, indices = fitness.topk(self.top_agents)
 
+        print(
+            f"Mean fitness - {torch.mean(values).item()} - Top fitness {values[0]}"
+        )
+
         # Update the best agent
         if values[0] > self.best_fitness:
+            print("NEW BEST")
             self.best_fitness = values[0]
             self.best_agent = self.generation[indices[0]]
 
@@ -110,4 +107,5 @@ class Trainer:
             )
             new_generation.append(child)
 
+        # Replace old generation
         self.generation = new_generation
