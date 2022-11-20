@@ -27,7 +27,7 @@ class Agent:
 
             # Choose a key and update the state
             key = utils.choose_key(
-                self.snake.get_game_state(),
+                self.snake.get_state(),
                 self.model
             )
             self.snake.update_state(key)

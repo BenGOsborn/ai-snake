@@ -28,8 +28,12 @@ class Snake:
         self.food = self.select_food()
         self.terminated = False
 
+    # Select a random location for food
+    def select_position(self):
+        return self.random.randint(0, self.height - 1), self.random.randint(0, self.width - 1)
+
     # Get the game state
-    def get_game_state(self):
+    def get_state(self):
         state = []
 
         standardized_distance = (self.height ** 2 + self.width ** 2) ** (1/2)
@@ -50,24 +54,12 @@ class Snake:
 
         return state
 
-    # Select a random location for food
-    def select_food(self):
-        return self.random.randint(0, self.height - 1), self.random.randint(0, self.width - 1)
-
-    # Check if the game is over
-    def game_over(self):
-        return self.terminated
-
     # Check if a position is accessible
     def is_valid_position(self, y, x):
         return not ((y, x) in self.snake or y in [-1, self.height] or x in [-1, self.width])
 
     # Update the state of the game
     def update_state(self, key):
-        # Check if the game has finished
-        if self.game_over():
-            raise Exception("Game has finished")
-
         # Update snake position
         if key == 0:
             mvmnt = [-1, 0]  # Up
@@ -82,13 +74,17 @@ class Snake:
 
         # Update position of snake
         if not self.is_valid_position(pos[0], pos[1]):
-            self.terminated = True
-            return
+            self.snake = [self.select_position()]
+
+            return -30
         else:
             self.snake.insert(0, pos)
 
         # Check if snake encountered food
         if self.snake[0][0] == self.food[0] and self.snake[0][1] == self.food[1]:
-            self.food = self.select_food()
+            self.food = self.select_position()
+
+            return 10
         else:
             self.snake.pop(-1)
+            return -1

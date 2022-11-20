@@ -19,7 +19,7 @@ def main(stdscr):
 
     # Game loop
     while True:
-        input_key = choose_key(snake.get_game_state(), model)
+        input_key = choose_key(snake.get_state(), model)
 
         snake.update_state(input_key)
         if snake.game_over():
@@ -41,7 +41,7 @@ def main_noscrn():
 
     # Game loop
     while True:
-        input_key = choose_key(snake.get_game_state(), model)
+        input_key = choose_key(snake.get_state(), model)
 
         snake.update_state(input_key)
         if snake.game_over():
