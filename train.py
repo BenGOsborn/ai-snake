@@ -23,7 +23,7 @@ def main():
         trainer.create_next_generation()
 
         if i % 20 == 0:
-            print(f"Saving to '{utils.MODEL_PATH_NEAT}'...")
+            print(f"Generation {i} - saving to '{utils.MODEL_PATH_NEAT}'...")
 
             trainer.save_best_agent(utils.MODEL_PATH_NEAT)
 
