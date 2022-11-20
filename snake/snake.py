@@ -17,7 +17,7 @@ class Snake:
 
     # Reset the state of the game
     def reset(self):
-        self.random = random.Random(1234)
+        self.random = random.Random(1)
         self.snake = [
             (
                 self.random.randint(0, self.height - 1),
