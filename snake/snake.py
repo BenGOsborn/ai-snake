@@ -68,8 +68,6 @@ class Snake:
             )
             state.append(food_distance)
 
-        print(state)
-
         return state
 
     # Check if a position is accessible

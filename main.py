@@ -48,7 +48,10 @@ def main_noscrn():
 
     # Game loop
     while True:
-        input_key = choose_key(snake.get_state(), model)
+        state = snake.get_state()
+        input_key = choose_key(state, model)
+
+        print(f"State {state} - Snake {snake.snake} - Food {snake.food}")
 
         snake.update_state(input_key)
 
