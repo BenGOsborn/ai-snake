@@ -25,10 +25,6 @@ class Agent:
         for _ in range(self.evaluations):
             time = 0
 
-            print(self.snake.food)
-            print(self.snake.snake)
-            print()
-
             eating_times = [0]  # The times the snake ate
             prev_size = len(self.snake.snake)
             penalty = 0
