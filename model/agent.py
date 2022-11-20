@@ -71,6 +71,6 @@ class Agent:
             self.snake.reset()
 
         # Calculate and update the agents fitness
-        self.fitness = record * 6 - deaths * 2 - penalties * 3
+        self.fitness = record * 8 - deaths * 2 - penalties * 2
         self.fitness = self.fitness - \
             mean(steps) * 0.1 if len(steps) > 0 else self.fitness
