@@ -43,7 +43,7 @@ def main_noscrn():
     )
 
     model = Model()
-    model.load_state_dict(torch.load(utils.MODEL_PATH))
+    model.load_state_dict(torch.load(utils.MODEL_PATH_GA))
     model.eval()
 
     # Game loop
