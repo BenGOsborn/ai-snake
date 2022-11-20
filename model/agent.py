@@ -1,15 +1,14 @@
-from model.model import Model
 import model.utils as utils
 
 
 class Agent:
-    def __init__(self, snake, evaluations, time_limit, stuck_limit):
+    def __init__(self, snake, model, evaluations, time_limit, stuck_limit):
         self.evaluations = evaluations
         self.time_limit = time_limit
         self.stuck_limit = stuck_limit
 
         self.snake = snake
-        self.model = Model()
+        self.model = model
 
         self.fitness = None
 

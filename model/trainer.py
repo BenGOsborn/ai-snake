@@ -1,5 +1,6 @@
 import torch
 
+from model.model import Model
 from model.agent import Agent
 
 
@@ -20,7 +21,7 @@ class Trainer:
 
         # Initialize generation
         self.generation = [
-            Agent(self.snake, self.evaluations, time_limit, stuck_limit) for _ in range(generation_size)
+            Agent(self.snake, Model(), self.evaluations, time_limit, stuck_limit) for _ in range(generation_size)
         ]
 
     # Evaluate all agents in the current population and get the current average and max fitness
@@ -60,13 +61,16 @@ class Trainer:
             new_genes[key] = genes
 
         # Create new child with new genes
+        model = Model()
+        model.load_state_dict(new_genes)
+
         child = Agent(
             self.snake,
+            model,
             self.evaluations,
             self.time_limit,
             self.stuck_limit,
         )
-        child.model.load_state_dict(new_genes)
 
         return child
 
@@ -81,23 +85,24 @@ class Trainer:
             [agent.fitness for agent in self.generation],
             dtype=torch.float
         )
-        probs = torch.softmax(fitness, dim=0)
-        distribution = torch.distributions.categorical.Categorical(probs=probs)
+        values, indices = fitness.topk(self.top_agents)
 
         # Update the best agent
-        argmax = torch.argmax(fitness)
-        if fitness[argmax] > self.best_fitness:
-            self.best_fitness = fitness[argmax]
-            self.best_agent = self.generation[argmax]
+        if values[0] > self.best_fitness:
+            self.best_fitness = values[0]
+            self.best_agent = self.generation[indices[0]]
 
         # Breed fit agents to create new generation
+        probs = torch.softmax(values, dim=0)
+        distribution = torch.distributions.categorical.Categorical(probs=probs)
+
         new_generation = []
         for _ in range(self.generation_size):
             parent1, parent2 = distribution.sample((2,)).tolist()
 
             child = self.breed(
-                self.generation[parent1],
-                self.generation[parent2]
+                self.generation[indices[parent1]],
+                self.generation[indices[parent2]]
             )
             new_generation.append(child)
 
