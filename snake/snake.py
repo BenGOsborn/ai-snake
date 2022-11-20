@@ -5,22 +5,18 @@ class Snake:
     def __init__(self, height, width, seed=None):
         self.height = height
         self.width = width
-        self.seed = seed
 
-        self.random = None
+        self.random = random.random(seed)
 
         self.snake = None
-        self.food = None
+        self.food = self.food = self.select_position()
 
-        # Initialize the game
+        # Initialize the snake
         self.reset()
 
-    # Reset the state of the game
+    # Reset the snake
     def reset(self):
-        self.random = random.Random(self.seed)
-
         self.snake = [self.select_position()]
-        self.food = self.select_position()
 
     # Select a random location for food
     def select_position(self):
@@ -68,7 +64,7 @@ class Snake:
 
         # Update position of snake
         if not self.is_valid_position(pos[0], pos[1]):
-            self.snake = [self.select_position()]
+            self.reset()
 
             return -20
         else:

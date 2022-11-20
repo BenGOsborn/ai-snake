@@ -12,6 +12,9 @@ class Agent:
 
     # Evaluate the current agent
     def evaluate(self, time_limit=1000, stuck_limit=100):
+        # Reset the snake
+        self.snake.reset()
+
         time = 0
 
         record = 0
@@ -19,12 +22,23 @@ class Agent:
         prev_size = len(self.snake.snake)
         penalty = 0
 
+        prev_size = 0
+
+        # **** Now we need to check if the current size has been updated
+
         # Run the game loop
         while time < time_limit:
+            current_size = len(self.snake.snake) - 1
+
+            if current_size > record:
+                record = current_size
+
             # Check if the snake is stuck
-            if time - eating_times[-1] == stuck_limit:
-                penalty = 1
-                break
+            if (time - eating_times[-1]) % stuck_limit == 0:
+                penalty += 1
+                self.snake.reset()
+                prev_size = 0
+                continue
 
             # Choose a key and update the state
             key = utils.choose_key(
@@ -34,7 +48,6 @@ class Agent:
             self.snake.update_state(key)
 
             # Record the eating times of the snake
-            current_size = len(self.snake.snake)
             if current_size > prev_size:
                 eating_times.append(time)
                 prev_size = current_size
@@ -48,9 +61,6 @@ class Agent:
         steps = [
             eating_times[i] - eating_times[i - 1] for i in range(1, len(eating_times))
         ]
-
-        # Reset the snake
-        self.snake.reset()
 
         # Calculate and update the agents fitness
         self.fitness = record * 5
