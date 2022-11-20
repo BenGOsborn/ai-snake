@@ -11,14 +11,14 @@ class Trainer:
 
         self.snake = snake
 
-        # Keep track of the best agent
-        self.best_fitness = -torch.inf
-        self.best_agent = None
-
         # Initialize generation
         self.generation = [
             Agent(self.snake, Model().eval()) for _ in range(generation_size)
         ]
+
+        # Keep track of the best agent
+        self.best_fitness = -torch.inf
+        self.best_agent = None
 
     # Evaluate all agents in the current population and get the current average and max fitness
     def evaluate_population(self):
@@ -33,23 +33,24 @@ class Trainer:
         # Merge genes together randomly
         new_genes = {}
 
+        # Mutate all genes
         mutation_bound = [
             -self.mutation_chance / 2,
             self.mutation_chance / 2
         ]
 
-        # Mutate all genes
         for key in state1:
-            rand_mask = 2 * torch.rand(state1[key].shape) - 1
+            rand1 = 2 * torch.rand(state1[key].shape) - 1
 
-            genes1 = (rand_mask <= mutation_bound[0]) * state1[key]
-            genes2 = (rand_mask > mutation_bound[1]) * state2[key]
-            genes_mutation = (
-                (rand_mask > mutation_bound[0]) & (
-                    rand_mask <= mutation_bound[1])
-            ) * (2 * torch.rand(state1[key].shape) - 1)
+            genes_state1 = (rand1 <= mutation_bound[0]) * state1[key]
+            genes_state2 = (rand1 > mutation_bound[1]) * state2[key]
 
-            genes = genes1 + genes2 + genes_mutation
+            rand2 = 2 * torch.rand(state1[key].shape) - 1
+
+            genes_mutation = ((rand1 > mutation_bound[0]) & (
+                rand1 <= mutation_bound[1])) * rand2
+
+            genes = genes_state1 + genes_state2 + genes_mutation
             new_genes[key] = genes
 
         # Create new child with new genes
