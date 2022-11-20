@@ -2,9 +2,10 @@ import random
 
 
 class Snake:
-    def __init__(self, height, width):
+    def __init__(self, height, width, seed=None):
         self.height = height
         self.width = width
+        self.seed = seed
 
         self.terminated = False
 
@@ -17,7 +18,7 @@ class Snake:
 
     # Reset the state of the game
     def reset(self):
-        self.random = random.Random(1234)
+        self.random = random.Random(self.seed)
         self.snake = [
             (
                 self.random.randint(0, self.height - 1),

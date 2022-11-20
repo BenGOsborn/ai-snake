@@ -10,7 +10,7 @@ import utils
 
 
 def main(stdscr):
-    snake = Snake(utils.HEIGHT, utils.WIDTH)
+    snake = Snake(utils.HEIGHT, utils.WIDTH, seed=utils.SEED)
     display = Display(snake, stdscr)
 
     model = Model()
