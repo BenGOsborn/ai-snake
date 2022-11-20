@@ -25,19 +25,16 @@ class Agent:
         # Run the game loop
         while time < time_limit:
             # Choose a key and update the state
-            key = utils.choose_key(
-                self.snake.get_state(),
-                self.model
-            )
+            key = utils.choose_key(self.snake.get_state(), self.model)
             event, _ = self.snake.update_state(key)
 
-            # Process death event
+            # Process eating and death events
             if event == -1:
                 deaths += 1
             elif event == 1:
                 eating_times.append(time)
 
-            # Record the eating times of the snake
+            # Update record
             current_food = len(self.snake.snake) - 1
 
             if current_food > record:
@@ -58,6 +55,6 @@ class Agent:
 
         # Calculate and update the agents fitness
         self.fitness = record * 5
-        self.fitness = self.fitness - deaths * 0.5 - penalty * 1
+        self.fitness = self.fitness - deaths * 2 - penalty * 2
         self.fitness = self.fitness - \
-            mean(steps) * 0.1 if len(steps) > 0 else self.fitness
+            mean(steps) * 0.5 if len(steps) > 0 else self.fitness

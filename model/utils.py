@@ -2,9 +2,9 @@ import torch
 
 
 # Let the model choose a key based on the game state
-def choose_key(snake_game_state, model):
+def choose_key(state, model):
     inputs = torch.tensor(
-        snake_game_state,
+        state,
         dtype=torch.float
     ).unsqueeze(0)
 
