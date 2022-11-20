@@ -14,8 +14,6 @@ class Agent:
 
         self.fitness = None
 
-        self.model.eval()
-
     # Evaluate the current agent a given amount of times
     def evaluate(self):
         fitness = []

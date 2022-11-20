@@ -21,7 +21,7 @@ class Trainer:
 
         # Initialize generation
         self.generation = [
-            Agent(self.snake, Model(), self.evaluations, time_limit, stuck_limit) for _ in range(generation_size)
+            Agent(self.snake, Model().eval(), self.evaluations, time_limit, stuck_limit) for _ in range(generation_size)
         ]
 
     # Evaluate all agents in the current population and get the current average and max fitness
@@ -62,7 +62,7 @@ class Trainer:
 
         child = Agent(
             self.snake,
-            model,
+            model.eval(),
             self.evaluations,
             self.time_limit,
             self.stuck_limit,
