@@ -66,7 +66,7 @@ class Snake:
         if not self.is_valid_position(pos[0], pos[1]):
             self.reset()
 
-            return -20
+            return -1, -20
         else:
             self.snake.insert(0, pos)
 
@@ -74,8 +74,8 @@ class Snake:
         if self.snake[0][0] == self.food[0] and self.snake[0][1] == self.food[1]:
             self.food = self.select_position()
 
-            return 10
+            return 1, 10
         else:
             self.snake.pop(-1)
 
-            return -1
+            return 0, -1

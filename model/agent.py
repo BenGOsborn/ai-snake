@@ -19,25 +19,14 @@ class Agent:
 
         record = 0
         eating_times = [0]  # The times the snake ate
-        prev_size = len(self.snake.snake)
         penalty = 0
-
-        prev_size = 0
-
-        # **** Now we need to check if the current size has been updated
 
         # Run the game loop
         while time < time_limit:
-            current_size = len(self.snake.snake) - 1
-
-            if current_size > record:
-                record = current_size
-
             # Check if the snake is stuck
             if (time - eating_times[-1]) % stuck_limit == 0:
                 penalty += 1
                 self.snake.reset()
-                prev_size = 0
                 continue
 
             # Choose a key and update the state
@@ -48,9 +37,10 @@ class Agent:
             self.snake.update_state(key)
 
             # Record the eating times of the snake
-            if current_size > prev_size:
-                eating_times.append(time)
-                prev_size = current_size
+            current_food = len(self.snake.snake) - 1
+
+            if current_food > record:
+                record = current_food
 
             # Update the time
             time += 1
