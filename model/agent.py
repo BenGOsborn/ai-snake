@@ -9,7 +9,7 @@ class Agent:
         self.fitness = None
 
     # Evaluate the agent and get its fitness
-    def evaluate(self, time_limit=250, stuck_limit=50):
+    def evaluate(self, time_limit=1000):
         # Reset the snake
         self.snake.reset()
 

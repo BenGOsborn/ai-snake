@@ -1,6 +1,8 @@
 import os
 
 
+SEED = 1234
+
 HEIGHT = 10
 WIDTH = 10
 FRAME_RATE = 15

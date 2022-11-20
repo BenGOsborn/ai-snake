@@ -2,21 +2,23 @@ import random
 
 
 class Snake:
-    def __init__(self, height, width):
+    def __init__(self, height, width, seed=None):
         self.height = height
         self.width = width
+        self.seed = seed
 
-        self.random = random.Random()
-
+        self.random = None
         self.snake = None
-        self.food = self.food = self.select_position()
+        self.food = None
 
-        # Initialize the snake
+        # Initialize the game
         self.reset()
 
-    # Reset the snake
+    # Reset the game
     def reset(self):
+        self.random = random.Random(self.seed)
         self.snake = [self.select_position()]
+        self.food = self.select_position()
 
     # Select a random location for food
     def select_position(self):
@@ -64,7 +66,7 @@ class Snake:
 
         # Update position of snake
         if not self.is_valid_position(pos[0], pos[1]):
-            self.reset()
+            self.snake = [self.select_position()]
 
             return -20
         else:
