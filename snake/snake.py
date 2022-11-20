@@ -40,24 +40,26 @@ class Snake:
     def get_state(self):
         state = []
 
-        # **** Now we need a better way of evaluating this...
-        # **** We will now look around the snake, and will get the current locations distance to the closest piece of food
-
         standardized_distance = (self.height ** 2 + self.width ** 2) ** (1/2)
-        food_y, food_x = self.food
 
         # Get the distance to food and accessibility of each direction
         for y, x in [[-1, 0], [1, 0], [0, -1], [0, 1]]:
             y += self.snake[0][0]
             x += self.snake[0][1]
 
-            blocked_pos = 0 if self.is_valid_position(y, x) else 1
-            state.append(blocked_pos)
+            pos_type = -1 if self.is_valid_position(y, x) else \
+                1 if (y, x) in self.food else 0
 
-            food_distance = (
-                ((y - food_y) ** 2 + (x - food_x) ** 2) ** (1/2)
-            ) / standardized_distance
+            state.append(pos_type)
+
+            food_distance = max(
+                [
+                    (((y - food_y) ** 2 + (x - food_x) ** 2) ** (1/2)) / standardized_distance for food_x, food_y in self.food
+                ]
+            )
             state.append(food_distance)
+
+        print(state)
 
         return state
 
