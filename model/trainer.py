@@ -86,14 +86,21 @@ class Trainer:
 
         new_generation = []
 
-        for _ in range(len(self.generation)):
+        while len(new_generation) < int(len(self.generation) * (1 - self.mutation_chance)):
             parent1, parent2 = distribution.sample((2,)).tolist()
 
             child = self.breed(
                 self.generation[parent1],
                 self.generation[parent2]
             )
-            new_generation.append(child)
+
+            new_generation.append(child)  # Add the new child
+            new_generation.append(parent1)  # Add the parent
+
+        for _ in range(len(self.generation) - len(new_generation)):
+            # Add random genes to the pool
+            rand = Agent(self.snake, Model().eval())
+            new_generation.append(rand)
 
         # Replace old generation
         self.generation = new_generation
