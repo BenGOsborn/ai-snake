@@ -18,7 +18,7 @@ class Agent:
 
     # Evaluate the current agent a given amount of times
     def evaluate(self):
-        record = 0
+        fitness = []
         deaths = 0
         steps = []
         penalties = 0
@@ -54,9 +54,7 @@ class Agent:
                 time += 1
 
             # Calculate score of agent
-            food_consumed = len(self.snake.snake) - 1
-            if food_consumed > record:
-                record = food_consumed
+            fitness.append(len(self.snake.snake) - 1)
 
             deaths += 1 if self.snake.game_over() else 0
 
@@ -70,9 +68,7 @@ class Agent:
             # Reset the snake
             self.snake.reset()
 
-        # **** AFTER THIS I WANT TO OPTIMIZE THE AVERAGE SCORE INSTEAD OF THE BEST SCORE
-
         # Calculate and update the agents fitness
-        self.fitness = record * 8 - deaths * 2 - penalties * 2
+        self.fitness = mean(fitness) * 5 - deaths - penalties * 2
         self.fitness = self.fitness - \
             mean(steps) * 0.1 if len(steps) > 0 else self.fitness
