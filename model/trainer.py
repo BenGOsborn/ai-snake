@@ -70,9 +70,12 @@ class Trainer:
             dtype=torch.float
         )
 
+        print(f"Mean: {torch.mean(fitness)} - Max: {torch.max(fitness)}")
+
         # Update the best agent
         argmax = torch.argmax(fitness)
         if fitness[argmax] > self.best_fitness:
+            print("NEW BEST")
             self.best_fitness = fitness[argmax]
             self.best_agent = self.generation[argmax]
 
