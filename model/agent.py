@@ -24,7 +24,7 @@ class Agent:
             self.snake.update_state(key)
 
             # Update record
-            score = len(self.snake.snake)
+            score = len(self.snake.snake) - 1
 
             if score > record:
                 record = score
