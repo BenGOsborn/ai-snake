@@ -5,8 +5,9 @@ from model.agent import Agent
 
 
 class Trainer:
-    def __init__(self, snake, generation_size, mutation_chance, mutation_pop_chance):
+    def __init__(self, snake, generation_size, top_k, mutation_chance, mutation_pop_chance):
         self.generation_size = generation_size
+        self.top_k = top_k
         self.mutation_chance = mutation_chance
         self.mutation_pop_chance = mutation_pop_chance
 
@@ -64,26 +65,30 @@ class Trainer:
 
         print(f"Mean: {torch.mean(fitness)} - Max: {torch.max(fitness)}")
 
+        # Select top K elements
+        values, indices = fitness.topk(self.top_k)
+
         # Update the best agent
-        argmax = torch.argmax(fitness)
-        if fitness[argmax] > self.best_fitness:
+        if values[0] > self.best_fitness:
             print("NEW BEST")
-            self.best_fitness = fitness[argmax]
-            self.best_agent = self.generation[argmax]
+            self.best_fitness = values[0]
+            self.best_agent = self.generation[indices[0]]
 
         # Mutate agents to create better ones
-        probs = torch.softmax(fitness, dim=0)
+        probs = torch.softmax(values, dim=0)
         distribution = torch.distributions.categorical.Categorical(probs=probs)
 
         new_generation = []
 
         while len(new_generation) < int(len(self.generation) * (1 - self.mutation_pop_chance)):
             # Add original genes
-            original = distribution.sample().item()
-            new_generation.append(self.generation[original])
+            original_index = distribution.sample().item()
+            original = self.generation[indices[original_index]]
+
+            new_generation.append(original)
 
             # Add mutated genes
-            mutated = self.mutate(self.generation[original])
+            mutated = self.mutate(original)
             new_generation.append(mutated)
 
         for _ in range(len(self.generation) - len(new_generation)):

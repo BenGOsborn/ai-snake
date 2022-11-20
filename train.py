@@ -10,6 +10,7 @@ def main():
     trainer = Trainer(
         snake,
         utils.GENERATION_SIZE,
+        utils.TOP_K,
         utils.MUTATION_CHANCE,
         utils.MUTATE_POP_CHANCE,
     )
