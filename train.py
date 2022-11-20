@@ -19,7 +19,7 @@ def main():
 
     # Train for N generations
     for i in range(utils.GENERATIONS):
-        print(f"\n==== NEAT - generation {i} ====")
+        print(f"==== NEAT - generation {i} ====")
 
         trainer.evaluate_population()
         trainer.create_next_generation()
