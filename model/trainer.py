@@ -29,7 +29,10 @@ class Trainer:
         for agent in self.generation:
             agent.evaluate()
 
-        fitness = [elem.fitness for elem in self.generation]
+        fitness = torch.tensor(
+            [elem.fitness for elem in self.generation],
+            dtype=torch.float
+        )
 
         return torch.mean(fitness), torch.max(fitness)
 
@@ -81,11 +84,14 @@ class Trainer:
     # Create the next generation
     def create_next_generation(self):
         # Select the best performing agents
-        fitness = torch.tensor(
-            [agent.fitness for agent in self.generation],
-            dtype=torch.float
-        )
-        values, indices = fitness.topk(self.top_agents)
+        fitness = sorted(
+            [(i, agent.fitness) for i, agent in enumerate(self.generation)],
+            reverse=True,
+            key=lambda x: x[1]
+        )[:self.top_agents]
+
+        values = torch.tensor([elem[1] for elem in fitness])
+        indices = torch.tensor([elem[0] for elem in fitness])
 
         # Update the best agent
         if values[0] > self.best_fitness:
