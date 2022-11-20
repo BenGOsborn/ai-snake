@@ -5,7 +5,12 @@ import utils
 
 def main():
     # Initialize
-    snake = Snake(utils.HEIGHT, utils.WIDTH, seed=utils.SEED)
+    snake = Snake(
+        utils.HEIGHT,
+        utils.WIDTH,
+        utils.FOOD_AMOUNT,
+        seed=utils.SEED
+    )
 
     trainer = Trainer(
         snake,

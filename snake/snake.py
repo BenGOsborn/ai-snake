@@ -2,14 +2,15 @@ import random
 
 
 class Snake:
-    def __init__(self, height, width, seed=None):
+    def __init__(self, height, width, food_amount, seed=None):
         self.height = height
         self.width = width
+        self.food_amount = food_amount
         self.seed = seed
 
         self.random = None
         self.snake = None
-        self.food = None
+        self.food = []
 
         # Initialize the game
         self.reset()
@@ -17,8 +18,17 @@ class Snake:
     # Reset the game
     def reset(self):
         self.random = random.Random(self.seed)
+        self.choose_snake_position()
+        self.choose_food_position()
+
+    # Choose a snake position
+    def choose_snake_position(self):
         self.snake = [self.select_position()]
-        self.food = self.select_position()
+
+    # Choose a food position
+    def choose_food_position(self):
+        for _ in range(self.food_amount - len(self.food)):
+            self.food.append(self.select_position())
 
     # Select a random location for food
     def select_position(self):
@@ -27,6 +37,9 @@ class Snake:
     # Get the game state
     def get_state(self):
         state = []
+
+        # **** Now we need a better way of evaluating this...
+        # **** We will now look around the snake, and will get the current locations distance to the closest piece of food
 
         standardized_distance = (self.height ** 2 + self.width ** 2) ** (1/2)
         food_y, food_x = self.food
@@ -66,7 +79,7 @@ class Snake:
 
         # Update position of snake
         if not self.is_valid_position(pos[0], pos[1]):
-            self.snake = [self.select_position()]
+            self.choose_snake_position()
 
             return -20
         else:
@@ -74,7 +87,7 @@ class Snake:
 
         # Check if snake encountered food
         if self.snake[0][0] == self.food[0] and self.snake[0][1] == self.food[1]:
-            self.food = self.select_position()
+            self.choose_food_position()
 
             return 10
         else:
