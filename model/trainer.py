@@ -5,13 +5,10 @@ from model.agent import Agent
 
 
 class Trainer:
-    def __init__(self, snake, generation_size, top_agents, mutation_chance, evaluations, time_limit, stuck_limit):
+    def __init__(self, snake, generation_size, top_agents, mutation_chance):
         self.generation_size = generation_size
         self.top_agents = top_agents
         self.mutation_chance = mutation_chance
-        self.evaluations = evaluations
-        self.time_limit = time_limit
-        self.stuck_limit = stuck_limit
 
         self.snake = snake
 
@@ -21,7 +18,7 @@ class Trainer:
 
         # Initialize generation
         self.generation = [
-            Agent(self.snake, Model().eval(), self.evaluations, time_limit, stuck_limit) for _ in range(generation_size)
+            Agent(self.snake, Model().eval()) for _ in range(generation_size)
         ]
 
     # Evaluate all agents in the current population and get the current average and max fitness
@@ -60,15 +57,7 @@ class Trainer:
         model = Model()
         model.load_state_dict(new_genes)
 
-        child = Agent(
-            self.snake,
-            model.eval(),
-            self.evaluations,
-            self.time_limit,
-            self.stuck_limit,
-        )
-
-        return child
+        return Agent(self.snake, model.eval())
 
     # Save the highest fitness agent
     def save_best_agent(self, path):
@@ -97,8 +86,16 @@ class Trainer:
         probs = torch.softmax(values, dim=0)
         distribution = torch.distributions.categorical.Categorical(probs=probs)
 
-        new_generation = []
-        for _ in range(self.generation_size):
+        new_generation = [
+            x[1] for x in sorted(
+                [(i, agent.fitness)
+                 for i, agent in enumerate(self.generation)],
+                reverse=True,
+                key=lambda x: x[1]
+            )[:self.top_agents]
+        ]
+
+        for _ in range(len(self.generation) - len(new_generation)):
             parent1, parent2 = distribution.sample((2,)).tolist()
 
             child = self.breed(

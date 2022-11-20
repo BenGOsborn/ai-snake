@@ -4,24 +4,20 @@ import model.utils as utils
 
 
 class Agent:
-    def __init__(self, snake, model, evaluations, time_limit, stuck_limit):
-        self.evaluations = evaluations
-        self.time_limit = time_limit
-        self.stuck_limit = stuck_limit
-
+    def __init__(self, snake, model):
         self.snake = snake
         self.model = model
 
         self.fitness = None
 
     # Evaluate the current agent a given amount of times
-    def evaluate(self):
+    def evaluate(self, evaluations=10, time_limit=1000, stuck_limit=100):
         fitness = []
         deaths = 0
         steps = []
         penalties = 0
 
-        for _ in range(self.evaluations):
+        for _ in range(evaluations):
             time = 0
 
             eating_times = [0]  # The times the snake ate
@@ -29,9 +25,9 @@ class Agent:
             penalty = 0
 
             # Run the game loop
-            while not self.snake.game_over() and time < self.time_limit:
+            while not self.snake.game_over() and time < time_limit:
                 # Check if the snake is stuck
-                if time - eating_times[-1] == self.stuck_limit:
+                if time - eating_times[-1] == stuck_limit:
                     penalty = 1
                     break
 
