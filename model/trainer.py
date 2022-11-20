@@ -5,9 +5,10 @@ from model.agent import Agent
 
 
 class Trainer:
-    def __init__(self, snake, generation_size, mutation_chance):
+    def __init__(self, snake, generation_size, mutation_chance, mutation_pop_chance):
         self.generation_size = generation_size
         self.mutation_chance = mutation_chance
+        self.mutation_pop_chance = mutation_pop_chance
 
         self.snake = snake
 
@@ -76,7 +77,7 @@ class Trainer:
 
         new_generation = []
 
-        while len(new_generation) < int(len(self.generation) * (1 - self.mutation_chance)):
+        while len(new_generation) < int(len(self.generation) * (1 - self.mutation_pop_chance)):
             # Add original genes
             original = distribution.sample().item()
             new_generation.append(self.generation[original])

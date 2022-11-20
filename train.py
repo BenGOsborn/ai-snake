@@ -11,6 +11,8 @@ def main():
         snake,
         utils.GENERATION_SIZE,
         utils.MUTATION_CHANCE,
+        utils.MUTATE_POPULATION,
+        utils.MUTATE_POP_CHANCE,
     )
 
     # Train for N generations
