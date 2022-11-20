@@ -71,5 +71,5 @@ class Agent:
             self.snake.reset()
 
         # Calculate and update the agents fitness
-        self.fitness = record * 7 - deaths * 0.5 - \
+        self.fitness = record * 6 - deaths * 2 - \
             penalties * 3 - torch.mean(steps) * 0.1
