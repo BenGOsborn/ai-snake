@@ -1,3 +1,5 @@
+import torch
+
 import model.utils as utils
 
 
@@ -69,6 +71,5 @@ class Agent:
             self.snake.reset()
 
         # Calculate and update the agents fitness
-        self.fitness = record * 7 - deaths * 0.5 - penalties * 3
-        if len(steps) > 0:
-            self.fitness -= (sum(steps) / len(steps)) * 0.1
+        self.fitness = record * 7 - deaths * 0.5 - \
+            penalties * 3 - torch.mean(steps) * 0.1

@@ -31,7 +31,7 @@ class Trainer:
 
         fitness = [elem.fitness for elem in self.generation]
 
-        return sum(fitness) / len(fitness), max(fitness)
+        return torch.mean(fitness), torch.max(fitness)
 
     # Breed two agents together
     def breed(self, agent1, agent2):
