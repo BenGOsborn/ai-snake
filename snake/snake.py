@@ -8,7 +8,14 @@ class Snake:
 
         self.terminated = False
 
+        self.snake = None
+        self.food = None
+
         # Initialize the game
+        self.reset()
+
+    # Reset the state of the game
+    def reset(self):
         self.snake = [
             (
                 random.randint(0, self.height - 1),

@@ -1,15 +1,17 @@
 import torch
 
 from model.agent import Agent
+from snake.snake import Snake
 
 
 class Trainer:
-    def __init__(self, height, width, generation_size, mutation_chance, time_limit):
-        self.height = height
-        self.width = width
+    def __init__(self, height, width, generation_size, mutation_chance, evaluations, time_limit):
         self.generation_size = generation_size
         self.mutation_chance = mutation_chance
+        self.evaluations = evaluations
         self.time_limit = time_limit
+
+        self.snake = Snake(height, width)
 
         # Keep track of the best agent
         self.best_fitness = -1
@@ -17,7 +19,7 @@ class Trainer:
 
         # Initialize generation
         self.generation = [
-            Agent(height, width, time_limit) for _ in range(generation_size)
+            Agent(self.snake, self.evaluations, time_limit) for _ in range(generation_size)
         ]
 
     # Evaluate all agents in the current population
@@ -53,11 +55,7 @@ class Trainer:
             new_genes[key] = genes
 
         # Create new child with new genes
-        child = Agent(
-            self.height,
-            self.width,
-            self.time_limit
-        )
+        child = Agent(self.snake, self.evaluations, self.time_limit)
         child.model.load_state_dict(new_genes)
 
         return child

@@ -12,8 +12,3 @@ def choose_key(snake_game_state, model):
         probs = model(inputs)
 
     return torch.argmax(probs).item()
-
-
-# Calculate the fitness of a given agent
-def calc_fitness(fitness, deaths, steps):
-    return (max(fitness) * 5) - (sum(deaths) * 1.3) - ((sum(steps) / len(steps)) * 0.7)

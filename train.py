@@ -8,6 +8,7 @@ def main():
         utils.WIDTH,
         utils.GENERATION_SIZE,
         utils.MUTATION_CHANCE,
+        utils.EVALUATIONS,
         utils.TRAINING_TIME_LIMIT,
     )
 
