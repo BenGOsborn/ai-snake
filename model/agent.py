@@ -54,9 +54,14 @@ class Agent:
             food_consumed = len(self.snake.snake) - 1
             if food_consumed > record:
                 record = food_consumed
+
             deaths += 1 if self.snake.game_over() else 0
-            steps.append([eating_times[i] - eating_times[i - 1]
-                         for i in range(1, len(eating_times))])
+
+            temp_steps = [eating_times[i] - eating_times[i - 1]
+                          for i in range(1, len(eating_times))]
+            for step in temp_steps:
+                steps.append(step)
+
             penalties += penalty
 
             # Reset the snake
