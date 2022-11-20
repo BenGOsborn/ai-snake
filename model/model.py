@@ -6,11 +6,11 @@ class Model(nn.Module):
         super().__init__()
 
         self.network = nn.Sequential(
-            nn.Linear(8, 12),
+            nn.Linear(8, 10),
             nn.ReLU(),
-            nn.Linear(12, 12),
+            nn.Linear(10, 10),
             nn.ReLU(),
-            nn.Linear(12, 4),
+            nn.Linear(10, 4),
             nn.Softmax(dim=1)
         )
 
