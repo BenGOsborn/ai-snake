@@ -1,7 +1,7 @@
 import os
 
 
-SEED = 1234
+SEED = None
 FRAME_RATE = 15
 
 HEIGHT = 10

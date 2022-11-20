@@ -32,6 +32,18 @@ class Snake:
         for _ in range(self.food_amount - len(self.food)):
             self.food.append(self.select_position())
 
+    # Eat food at a given position
+    def eat_food(self, y, x):
+        pos = -1
+
+        for i, food in self.food:
+            if (y, x) == food:
+                pos = i
+                break
+
+        self.food.pop(pos)
+        self.choose_food_position()
+
     # Select a random location for food
     def select_position(self):
         return self.random.randint(0, self.height - 1), self.random.randint(0, self.width - 1)
@@ -47,10 +59,7 @@ class Snake:
             y += self.snake[0][0]
             x += self.snake[0][1]
 
-            pos_type = -1 if self.is_valid_position(y, x) else \
-                1 if (y, x) in self.food else 0
-
-            state.append(pos_type)
+            state.append(self.position_value(y, x))
 
             food_distance = max(
                 [
@@ -64,8 +73,14 @@ class Snake:
         return state
 
     # Check if a position is accessible
-    def is_valid_position(self, y, x):
-        return not ((y, x) in self.snake or y in [-1, self.height] or x in [-1, self.width])
+    def position_value(self, y, x):
+        if (y, x) in self.snake or y in [-1, self.height] or x in [-1, self.width]:
+            return -1
+
+        if (y, x) in self.food:
+            return 1
+
+        return 0
 
     # Update the state of the game
     def update_state(self, key):
@@ -80,9 +95,10 @@ class Snake:
             mvmnt = [0, 1]  # Right
 
         pos = (self.snake[0][0] + mvmnt[0], self.snake[0][1] + mvmnt[1])
+        pos_value = self.position_value(*pos)
 
         # Update position of snake
-        if not self.is_valid_position(pos[0], pos[1]):
+        if pos_value == -1:
             self.choose_snake_position()
 
             return utils.TERMINATED, -20
@@ -90,8 +106,8 @@ class Snake:
             self.snake.insert(0, pos)
 
         # Check if snake encountered food
-        if self.snake[0][0] == self.food[0] and self.snake[0][1] == self.food[1]:
-            self.choose_food_position()
+        if pos_value == 1:
+            self.eat_food(*pos)
 
             return utils.ATE, 10
         else:

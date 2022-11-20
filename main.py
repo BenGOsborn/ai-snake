@@ -35,7 +35,12 @@ def main(stdscr):
 
 
 def main_noscrn():
-    snake = Snake(utils.HEIGHT, utils.WIDTH)
+    snake = Snake(
+        utils.HEIGHT,
+        utils.WIDTH,
+        utils.FOOD_AMOUNT,
+        seed=utils.SEED
+    )
 
     model = Model()
     model.load_state_dict(torch.load(utils.MODEL_PATH))
@@ -51,5 +56,5 @@ def main_noscrn():
 
 
 if __name__ == "__main__":
-    curses.wrapper(main)
-    # main_noscrn()
+    # curses.wrapper(main)
+    main_noscrn()
