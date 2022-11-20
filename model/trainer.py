@@ -16,7 +16,7 @@ class Trainer:
         self.snake = snake
 
         # Keep track of the best agent
-        self.best_fitness = -1
+        self.best_fitness = -torch.inf
         self.best_agent = None
 
         # Initialize generation
