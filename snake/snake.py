@@ -59,9 +59,7 @@ class Snake:
             y += self.snake[0][0]
             x += self.snake[0][1]
 
-            state.append(self.position_value(y, x))
-
-            print(self.position_value(y, x), (y, x))
+            state.append(self.pos_value(y, x))
 
             food_distance = max(
                 [
@@ -73,7 +71,7 @@ class Snake:
         return state
 
     # Check if a position is accessible
-    def position_value(self, y, x):
+    def pos_value(self, y, x):
         if (y, x) in self.snake or y in [-1, self.height] or x in [-1, self.width]:
             return -1
 
@@ -95,7 +93,7 @@ class Snake:
             mvmnt = [0, 1]  # Right
 
         pos = (self.snake[0][0] + mvmnt[0], self.snake[0][1] + mvmnt[1])
-        pos_value = self.position_value(*pos)
+        pos_value = self.pos_value(*pos)
 
         # Update position of snake
         if pos_value == -1:
