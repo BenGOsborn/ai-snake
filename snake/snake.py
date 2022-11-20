@@ -7,11 +7,10 @@ class Snake:
         self.width = width
         self.seed = seed
 
-        self.terminated = False
+        self.random = None
 
         self.snake = None
         self.food = None
-        self.random = None
 
         # Initialize the game
         self.reset()
@@ -19,9 +18,9 @@ class Snake:
     # Reset the state of the game
     def reset(self):
         self.random = random.Random(self.seed)
+
         self.snake = [self.select_position()]
         self.food = self.select_position()
-        self.terminated = False
 
     # Select a random location for food
     def select_position(self):
