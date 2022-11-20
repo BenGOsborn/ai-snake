@@ -34,8 +34,8 @@ class Snake:
             y += self.snake[0][0]
             x += self.snake[0][1]
 
-            valid_pos = 1 if self.is_valid_position(y, x) else 0
-            state.append(valid_pos)
+            blocked_pos = 0 if self.is_valid_position(y, x) else 1
+            state.append(blocked_pos)
 
             food_distance = (
                 ((y - food_y) ** 2 + (x - food_x) ** 2) ** (1/2)
