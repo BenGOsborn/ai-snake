@@ -38,6 +38,6 @@ class Agent:
                 start_time = time
 
         # Update agents fitness
-        scores = scores + [current_score / (time - start_time)]
+        scores = scores + [current_score / (time + 1 - start_time)]
 
         self.fitness = sum(scores) / len(scores)
