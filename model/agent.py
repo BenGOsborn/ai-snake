@@ -9,7 +9,7 @@ class Agent:
         self.fitness = None
 
     # Evaluate the agent and get its fitness
-    def evaluate(self, time_limit=1000):
+    def evaluate(self, time_limit=750):
         # Reset the snake
         self.snake.reset()
 
@@ -28,6 +28,9 @@ class Agent:
 
             if score > record:
                 record = score
+
+            # Update time
+            time += 1
 
         # Calculate and update the agents fitness
         self.fitness = record
