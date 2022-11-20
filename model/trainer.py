@@ -86,7 +86,6 @@ class Trainer:
             [agent.fitness for agent in self.generation],
             dtype=torch.float
         )
-        print(fitness)
         values, indices = fitness.topk(self.top_agents)
 
         # Update the best agent
