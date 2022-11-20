@@ -5,9 +5,8 @@ from model.agent import Agent
 
 
 class Trainer:
-    def __init__(self, snake, generation_size, top_agents, mutation_chance):
+    def __init__(self, snake, generation_size, mutation_chance):
         self.generation_size = generation_size
-        self.top_agents = top_agents
         self.mutation_chance = mutation_chance
 
         self.snake = snake
@@ -70,38 +69,25 @@ class Trainer:
             [agent.fitness for agent in self.generation],
             dtype=torch.float
         )
-        values, indices = fitness.topk(self.top_agents)
-
-        print(
-            f"Mean fitness - {torch.mean(values).item()} - Top fitness {values[0]}"
-        )
 
         # Update the best agent
-        if values[0] > self.best_fitness:
-            print("NEW BEST")
-            self.best_fitness = values[0]
-            self.best_agent = self.generation[indices[0]]
+        argmax = torch.argmax(fitness)
+        if fitness[argmax] > self.best_fitness:
+            self.best_fitness = fitness[argmax]
+            self.best_agent = self.generation[argmax]
 
         # Breed fit agents to create new generation
-        probs = torch.softmax(values, dim=0)
+        probs = torch.softmax(fitness, dim=0)
         distribution = torch.distributions.categorical.Categorical(probs=probs)
 
-        new_generation = [
-            self.generation[x[0]] for x in sorted(
-                [
-                    (i, agent.fitness) for i, agent in enumerate(self.generation)
-                ],
-                reverse=True,
-                key=lambda x: x[1]
-            )[:self.top_agents]
-        ]
+        new_generation = []
 
-        for _ in range(len(self.generation) - len(new_generation)):
+        for _ in range(len(self.generation)):
             parent1, parent2 = distribution.sample((2,)).tolist()
 
             child = self.breed(
-                self.generation[indices[parent1]],
-                self.generation[indices[parent2]]
+                self.generation[parent1],
+                self.generation[parent2]
             )
             new_generation.append(child)
 
