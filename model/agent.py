@@ -24,7 +24,8 @@ class Agent:
         # Run the game loop
         while time < time_limit:
             # Check if the snake is stuck
-            if (time - eating_times[-1]) % stuck_limit == 0:
+            # **** How do I deal with this periodically ???
+            if (time - eating_times[-1] + 1) % stuck_limit == 0:
                 penalty += 1
                 self.snake.reset()
                 continue
