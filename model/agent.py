@@ -1,4 +1,5 @@
-import model.utils as utils
+import model.utils as model_utils
+import snake.utils as snake_utils
 
 
 class Agent:
@@ -15,22 +16,19 @@ class Agent:
 
         time = 0
 
-        record = 0
+        total_score = 0
 
         # Run the game loop
         while time < time_limit:
             # Choose a key and update the state
-            key = utils.choose_key(self.snake.get_state(), self.model)
-            self.snake.update_state(key)
+            key = model_utils.choose_key(self.snake.get_state(), self.model)
+            event, _ = self.snake.update_state(key)
 
-            # Update record
-            score = len(self.snake.snake) - 1
-
-            if score > record:
-                record = score
+            if event == snake_utils.ATE:
+                total_score += 1
 
             # Update time
             time += 1
 
         # Calculate and update the agents fitness
-        self.fitness = record / time
+        self.fitness = total_score / time
