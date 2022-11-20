@@ -5,11 +5,12 @@ from snake.snake import Snake
 
 
 class Trainer:
-    def __init__(self, height, width, generation_size, mutation_chance, evaluations, time_limit):
+    def __init__(self, height, width, generation_size, mutation_chance, evaluations, time_limit, stuck_limit):
         self.generation_size = generation_size
         self.mutation_chance = mutation_chance
         self.evaluations = evaluations
         self.time_limit = time_limit
+        self.stuck_limit = stuck_limit
 
         self.snake = Snake(height, width)
 
@@ -19,7 +20,7 @@ class Trainer:
 
         # Initialize generation
         self.generation = [
-            Agent(self.snake, self.evaluations, time_limit) for _ in range(generation_size)
+            Agent(self.snake, self.evaluations, time_limit, stuck_limit) for _ in range(generation_size)
         ]
 
     # Evaluate all agents in the current population
@@ -55,7 +56,12 @@ class Trainer:
             new_genes[key] = genes
 
         # Create new child with new genes
-        child = Agent(self.snake, self.evaluations, self.time_limit)
+        child = Agent(
+            self.snake,
+            self.evaluations,
+            self.time_limit,
+            self.stuck_limit,
+        )
         child.model.load_state_dict(new_genes)
 
         return child

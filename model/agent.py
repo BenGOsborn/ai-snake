@@ -3,9 +3,10 @@ import model.utils as utils
 
 
 class Agent:
-    def __init__(self, snake, evaluations, time_limit):
+    def __init__(self, snake, evaluations, time_limit, stuck_limit):
         self.evaluations = evaluations
         self.time_limit = time_limit
+        self.stuck_limit = stuck_limit
 
         self.snake = snake
         self.model = Model()
@@ -18,17 +19,22 @@ class Agent:
     def evaluate(self):
         record = 0
         deaths = 0
-        eating_times = []
+        steps = []
         penalties = 0
 
         for _ in range(self.evaluations):
             time = 0
 
-            temp_eating_times = [0]  # The times the snake ate
+            eating_times = [0]  # The times the snake ate
             prev_size = len(self.snake.snake)
+            penalty = 0
 
             # Run the game loop
             while not self.snake.game_over() and time < self.time_limit:
+                if time - eating_times[-1] == self.stuck_limit:
+                    penalty = 1
+                    break
+
                 key = utils.choose_key(
                     self.snake.get_game_state(),
                     self.model
@@ -39,7 +45,7 @@ class Agent:
                 # Record the eating times of the snake
                 current_size = len(self.snake.snake)
                 if current_size > prev_size:
-                    temp_eating_times.append(time)
+                    eating_times.append(time)
                     prev_size = current_size
 
                 time += 1
@@ -49,10 +55,13 @@ class Agent:
             if food_consumed > record:
                 record = food_consumed
             deaths += 1 if self.snake.game_over() else 0
-            eating_times.append(temp_eating_times)
-            penalties += 0 if time < self.time_limit else 1
+            steps.append([eating_times[i] - eating_times[i - 1]
+                         for i in range(1, len(eating_times))])
+            penalties += penalty
 
+            # Reset the snake
             self.snake.reset()
 
         # Calculate and update the agents fitness
-        self.fitness = sum(fitness) / len(fitness)
+        self.fitness = record * 5 - deaths * 0.15 - \
+            (sum(steps) / len(steps)) * 0.1 - penalties * 1

@@ -10,6 +10,7 @@ def main():
         utils.MUTATION_CHANCE,
         utils.EVALUATIONS,
         utils.TRAINING_TIME_LIMIT,
+        utils.STUCK_LIMIT,
     )
 
     prev_best = -1
