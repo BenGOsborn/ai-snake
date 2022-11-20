@@ -1,7 +1,5 @@
 import random
 
-# **** We should update the snake so that it actually respawns immediately - the food stays in the same position from its inception
-
 
 class Snake:
     def __init__(self, height, width, seed=None):
