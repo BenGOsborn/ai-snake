@@ -1,4 +1,4 @@
-import torch
+from statistics import mean
 
 import model.utils as utils
 
@@ -74,4 +74,4 @@ class Agent:
         self.fitness = record * 6 - \
             deaths * 2 - \
             penalties * 3 - \
-            torch.mean(torch.tensor(steps), dtype=torch.float) * 0.1
+            mean(steps) * 0.1

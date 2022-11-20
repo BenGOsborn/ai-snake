@@ -1,3 +1,4 @@
+from statistics import mean
 import torch
 
 from model.model import Model
@@ -29,12 +30,9 @@ class Trainer:
         for agent in self.generation:
             agent.evaluate()
 
-        fitness = torch.tensor(
-            [elem.fitness for elem in self.generation],
-            dtype=torch.float
-        )
+        fitness = [elem.fitness for elem in self.generation]
 
-        return torch.mean(fitness), torch.max(fitness)
+        return mean(fitness), max(fitness)
 
     # Breed two agents together
     def breed(self, agent1, agent2):
@@ -84,14 +82,12 @@ class Trainer:
     # Create the next generation
     def create_next_generation(self):
         # Select the best performing agents
-        fitness = sorted(
-            [(i, agent.fitness) for i, agent in enumerate(self.generation)],
-            reverse=True,
-            key=lambda x: x[1]
-        )[:self.top_agents]
-
-        values = torch.tensor([elem[1] for elem in fitness])
-        indices = torch.tensor([elem[0] for elem in fitness])
+        fitness = torch.tensor(
+            [agent.fitness for agent in self.generation],
+            dtype=torch.float
+        )
+        print(fitness)
+        values, indices = fitness.topk(self.top_agents)
 
         # Update the best agent
         if values[0] > self.best_fitness:
