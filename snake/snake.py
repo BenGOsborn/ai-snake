@@ -10,16 +10,18 @@ class Snake:
 
         self.snake = None
         self.food = None
+        self.random = None
 
         # Initialize the game
         self.reset()
 
     # Reset the state of the game
     def reset(self):
+        self.random = random.Random(1234)
         self.snake = [
             (
-                random.randint(0, self.height - 1),
-                random.randint(0, self.width - 1)
+                self.random.randint(0, self.height - 1),
+                self.random.randint(0, self.width - 1)
             )
         ]
         self.food = self.select_food()
@@ -49,7 +51,7 @@ class Snake:
 
     # Select a random location for food
     def select_food(self):
-        return random.randint(0, self.height - 1), random.randint(0, self.width - 1)
+        return self.random.randint(0, self.height - 1), self.random.randint(0, self.width - 1)
 
     # Check if the game is over
     def game_over(self):

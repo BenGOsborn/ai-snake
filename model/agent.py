@@ -11,7 +11,7 @@ class Agent:
         self.fitness = None
 
     # Evaluate the current agent a given amount of times
-    def evaluate(self, evaluations=10, time_limit=1000, stuck_limit=100):
+    def evaluate(self, evaluations=1, time_limit=1000, stuck_limit=100):
         fitness = []
         deaths = 0
         steps = []
@@ -63,7 +63,7 @@ class Agent:
             self.snake.reset()
 
         # Calculate and update the agents fitness
-        self.fitness = max(fitness) * 6
-        self.fitness = self.fitness - deaths * 0.15 - penalties * 1
+        self.fitness = max(fitness) * 5
+        self.fitness = self.fitness - deaths * 0.5 - penalties * 1
         self.fitness = self.fitness - \
             mean(steps) * 0.1 if len(steps) > 0 else self.fitness
