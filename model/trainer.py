@@ -87,7 +87,7 @@ class Trainer:
         distribution = torch.distributions.categorical.Categorical(probs=probs)
 
         new_generation = [
-            x[1] for x in sorted(
+            self.generation[x[0]] for x in sorted(
                 [(i, agent.fitness)
                  for i, agent in enumerate(self.generation)],
                 reverse=True,
