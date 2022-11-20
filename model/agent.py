@@ -16,7 +16,9 @@ class Agent:
 
         time = 0
 
-        total_score = 0
+        scores = []
+        current_score = 0
+        start_time = 0
 
         # Run the game loop
         while time < time_limit:
@@ -24,11 +26,18 @@ class Agent:
             key = model_utils.choose_key(self.snake.get_state(), self.model)
             event, _ = self.snake.update_state(key)
 
-            if event == snake_utils.ATE:
-                total_score += 1
-
             # Update time
             time += 1
 
-        # Calculate and update the agents fitness
-        self.fitness = total_score / time
+            # Update score
+            if event == snake_utils.ATE:
+                current_score += 1
+            elif event == snake_utils.TERMINATED:
+                scores.append(current_score / (time - start_time))
+                current_score = 0
+                start_time = time
+
+        # Update agents fitness
+        scores = scores + [current_score / (time - start_time)]
+
+        self.fitness = sum(scores) / len(scores)
