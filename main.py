@@ -40,7 +40,6 @@ def main_noscrn():
         utils.WIDTH,
         utils.FOOD_AMOUNT,
         seed=utils.SEED,
-        stuck_limit=utils.STUCK_LIMIT,
     )
 
     model = Model()
@@ -52,7 +51,9 @@ def main_noscrn():
         state = snake.get_state()
         input_key = choose_key(state, model)
 
-        print(f"State {state} - Snake {snake.snake} - Food {snake.food}")
+        print(
+            f"Snake size {len(snake.snake)} - Snake head {snake.snake[0]} - Food {snake.food}"
+        )
 
         snake.update_state(input_key)
 

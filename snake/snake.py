@@ -43,7 +43,7 @@ class Snake:
     def eat_food(self, y, x):
         pos = -1
 
-        for i, food in self.food:
+        for i, food in enumerate(self.food):
             if (y, x) == food:
                 pos = i
                 break
