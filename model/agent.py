@@ -9,16 +9,17 @@ class Agent:
 
         self.fitness = None
 
-    # Evaluate the agent and get its fitness
-    def evaluate(self, time_limit=1000):
+    # Evaluate the current agent
+    def evaluate(self, time_limit=1000, stuck_limit=100):
         # Reset the snake
         self.snake.reset()
 
         time = 0
 
-        scores = []
-        current_score = 0
-        start_time = 0
+        record = 0
+        deaths = 0
+        penalty = 0
+        eating_times = [0]  # The times the snake ate
 
         # Run the game loop
         while time < time_limit:
@@ -26,18 +27,33 @@ class Agent:
             key = model_utils.choose_key(self.snake.get_state(), self.model)
             event, _ = self.snake.update_state(key)
 
-            # Update time
+            # Process eating and death events
+            if event == snake_utils.TERMINATED:
+                deaths += 1
+            elif event == snake_utils.ATE:
+                eating_times.append(time)
+
+            # Update record
+            current_food = len(self.snake.snake) - 1
+
+            if current_food > record:
+                record = current_food
+
+            # Update the time
             time += 1
 
-            # Update score
-            if event == snake_utils.ATE:
-                current_score += 1
-            elif event == snake_utils.TERMINATED:
-                scores.append(current_score / (time - start_time))
-                current_score = 0
-                start_time = time
+            # Check if the snake is stuck
+            if (time - eating_times[-1]) % stuck_limit == 0:
+                penalty += 1
+                self.snake.reset()
 
-        # Update agents fitness
-        scores = scores + [current_score / (time + 1 - start_time)]
+        # Calculate score of agent
+        steps = [
+            eating_times[i] - eating_times[i - 1] for i in range(1, len(eating_times))
+        ]
 
-        self.fitness = sum(scores) / len(scores)
+        # Calculate and update the agents fitness
+        self.fitness = record * 5
+        self.fitness = self.fitness - deaths * 2 - penalty * 2
+        self.fitness = self.fitness - \
+            (sum(steps) / len(steps)) * 0.5 if len(steps) > 0 else self.fitness
