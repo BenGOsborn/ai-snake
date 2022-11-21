@@ -9,7 +9,7 @@ def main():
         utils.HEIGHT,
         utils.WIDTH,
         utils.FOOD_AMOUNT,
-        seed=utils.SEED
+        seed=utils.SNAKE_SEED
     )
 
     trainer = Trainer(

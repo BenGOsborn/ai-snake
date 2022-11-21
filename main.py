@@ -15,7 +15,7 @@ def main(stdscr):
         utils.HEIGHT,
         utils.WIDTH,
         utils.FOOD_AMOUNT,
-        seed=utils.SEED
+        seed=utils.SNAKE_SEED
     )
 
     display = Display(snake, stdscr)
@@ -40,7 +40,7 @@ def main_noscrn():
         utils.HEIGHT,
         utils.WIDTH,
         utils.FOOD_AMOUNT,
-        seed=utils.SEED,
+        seed=utils.SNAKE_SEED,
     )
 
     model = Model()
