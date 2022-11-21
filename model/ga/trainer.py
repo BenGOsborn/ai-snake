@@ -53,6 +53,8 @@ class GATrainer:
 
     # Save the highest fitness agent
     def save_best_agent(self, path):
+        print(f"Saving model to '{path}'...")
+
         torch.save(self.best_agent.model.state_dict(), path)
 
     # Create the next generation
