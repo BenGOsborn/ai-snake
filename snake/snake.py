@@ -62,7 +62,7 @@ class Snake:
         standardized_distance = (self.height ** 2 + self.width ** 2) ** (1/2)
 
         # Get the distance to food and accessibility of each direction
-        for y, x in [[-1, 0], [1, 0], [0, -1], [0, 1]]:
+        for y, x in [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]]:
             y += self.snake[0][0]
             x += self.snake[0][1]
 
