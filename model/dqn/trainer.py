@@ -8,7 +8,6 @@ class DQNTrainer:
         self.time_limit = time_limit
         self.copy_timesteps = copy_timesteps
         self.batch_size = batch_size
-        self.alpha = alpha
         self.gamma = gamma
         self.epsilon = epsilon
         self.epsilon_dec = epsilon_dec
@@ -16,8 +15,11 @@ class DQNTrainer:
 
         self.snake = snake
 
+        # Initialize model
         self.model = DQNModel()
         self.target_model = DQNModel()
+
+        self.optimizer = torch.optim.Adam(self.model.parameters(), lr=alpha)
 
         # Store experience tuples (s_t, a_t, r_t+1, s_t+1)
         self.states = None
