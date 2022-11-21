@@ -1,6 +1,7 @@
 import curses
 import torch
 from time import sleep
+import sys
 
 from snake.snake import Snake
 from display.display import Display
@@ -61,5 +62,7 @@ def main_noscrn():
 
 
 if __name__ == "__main__":
-    curses.wrapper(main)
-    # main_noscrn()
+    if len(sys.argv) > 1 and sys.argv[1] == "d":
+        curses.wrapper(main)
+    else:
+        main_noscrn()
