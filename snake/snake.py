@@ -4,7 +4,7 @@ import snake.utils as utils
 
 
 class Snake:
-    def __init__(self, height, width, food_amount, seed=None, stuck_limit=50):
+    def __init__(self, height, width, food_amount, seed=None, stuck_limit=100):
         self.height = height
         self.width = width
         self.food_amount = food_amount
