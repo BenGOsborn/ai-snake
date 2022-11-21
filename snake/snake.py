@@ -15,11 +15,17 @@ class Snake:
         self.snake = None
         self.food = []
 
+        self.counter = 0
+        self.last_eaten = 0
+
         # Initialize the game
         self.reset()
 
     # Reset the game
     def reset(self):
+        self.counter = 0
+        self.last_eaten = 0
+
         self.random = random.Random(self.seed)
         self.choose_snake_position()
         self.choose_food_position()
@@ -83,6 +89,15 @@ class Snake:
 
     # Update the state of the game
     def update_state(self, key):
+        # Reset the snake if it is stuck
+        if self.counter - self.last_eaten == self.stuck_limit:
+            self.choose_snake_position()
+
+            self.counter += 1
+            self.last_eaten = self.counter
+
+            return utils.STUCK, -100
+
         # Update snake position
         if key == 0:
             mvmnt = [-1, 0]  # Up
@@ -100,6 +115,8 @@ class Snake:
         if pos_value == -1:
             self.choose_snake_position()
 
+            self.counter += 1
+
             return utils.TERMINATED, -20
         else:
             self.snake.insert(0, pos)
@@ -108,8 +125,12 @@ class Snake:
         if pos_value == 1:
             self.eat_food(*pos)
 
+            self.counter += 1
+
             return utils.ATE, 10
         else:
             self.snake.pop(-1)
+
+            self.counter += 1
 
             return utils.NULL, -1

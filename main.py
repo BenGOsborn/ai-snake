@@ -14,8 +14,7 @@ def main(stdscr):
         utils.HEIGHT,
         utils.WIDTH,
         utils.FOOD_AMOUNT,
-        seed=utils.SEED,
-        stuck_limit=utils.STUCK_LIMIT,
+        seed=utils.SEED
     )
 
     display = Display(snake, stdscr)

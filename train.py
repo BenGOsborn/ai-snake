@@ -9,8 +9,7 @@ def main():
         utils.HEIGHT,
         utils.WIDTH,
         utils.FOOD_AMOUNT,
-        seed=utils.SEED,
-        stuck_limit=utils.STUCK_LIMIT
+        seed=utils.SEED
     )
 
     trainer = Trainer(
