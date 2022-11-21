@@ -6,7 +6,9 @@ class DQNModel(nn.Module):
         super().__init__()
 
         self.network = nn.Sequential(
-            nn.Linear(20, 16),
+            nn.Linear(20, 24),
+            nn.ReLU(),
+            nn.Linear(24, 16),
             nn.ReLU(),
             nn.Linear(16, 4),
         )
