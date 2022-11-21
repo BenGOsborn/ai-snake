@@ -10,7 +10,7 @@ class Agent:
         self.fitness = None
 
     # Evaluate the current agent
-    def evaluate(self, time_limit=1000, stuck_limit=100):
+    def evaluate(self, time_limit=1000):
         # Reset the snake
         self.snake.reset()
 
@@ -32,28 +32,21 @@ class Agent:
                 deaths += 1
             elif event == snake_utils.ATE:
                 eating_times.append(time)
+            elif event == snake_utils.STUCK:
+                penalty += 1
 
             # Update record
-            current_food = len(self.snake.snake) - 1
-
-            if current_food > record:
-                record = current_food
+            record = max(record, len(self.snake.snake) - 1)
 
             # Update the time
             time += 1
-
-            # Check if the snake is stuck
-            if (time - eating_times[-1]) % stuck_limit == 0:
-                penalty += 1
-                self.snake.choose_snake_position()
 
         # Calculate score of agent
         steps = [
             eating_times[i] - eating_times[i - 1] for i in range(1, len(eating_times))
         ]
+        avg_steps = sum(steps) / len(steps) if len(steps) > 0 else 0
 
         # Calculate and update the agents fitness
         self.fitness = record * 5
-        self.fitness = self.fitness - deaths * 0.15 - penalty * 1
-        self.fitness = self.fitness - \
-            (sum(steps) / len(steps)) * 0.1 if len(steps) > 0 else self.fitness
+        self.fitness = self.fitness - deaths * 0.15 - penalty * 1 - avg_steps * 0.1
