@@ -2,7 +2,7 @@ import os
 
 
 SEED = None
-FRAME_RATE = 15
+FRAME_RATE = 10
 
 HEIGHT = 10
 WIDTH = 10
