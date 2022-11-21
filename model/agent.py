@@ -45,7 +45,7 @@ class Agent:
             # Check if the snake is stuck
             if (time - eating_times[-1]) % stuck_limit == 0:
                 penalty += 1
-                self.snake.reset()
+                self.snake.choose_snake_position()
 
         # Calculate score of agent
         steps = [
