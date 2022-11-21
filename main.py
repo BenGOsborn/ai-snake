@@ -7,6 +7,7 @@ from display.display import Display
 from model.model import Model
 from model.utils import choose_key
 import utils
+import snake.utils as snake_utils
 
 
 def main(stdscr):
