@@ -101,7 +101,7 @@ class Snake:
 
             self.last_eaten = self.counter
 
-            return utils.STUCK, -100
+            return utils.STUCK
 
         # Update snake position
         if key == 0:
@@ -122,7 +122,7 @@ class Snake:
 
             self.last_eaten = self.counter
 
-            return utils.TERMINATED, -20
+            return utils.TERMINATED
         else:
             self.snake.insert(0, pos)
 
@@ -132,10 +132,10 @@ class Snake:
 
             self.last_eaten = self.counter
 
-            return utils.ATE, 10
+            return utils.ATE
         else:
             self.snake.pop(-1)
 
             self.counter += 1
 
-            return utils.NULL, -1
+            return utils.NULL

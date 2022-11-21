@@ -25,7 +25,7 @@ class Agent:
         while time < time_limit:
             # Choose a key and update the state
             key = model_utils.choose_key(self.snake.get_state(), self.model)
-            event, _ = self.snake.update_state(key)
+            event = self.snake.update_state(key)
 
             # Process eating and death events
             if event == snake_utils.TERMINATED:

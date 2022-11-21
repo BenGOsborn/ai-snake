@@ -2,3 +2,10 @@ TERMINATED = "SNAKE_TERMINATED"
 ATE = "SNAKE_ATE"
 NULL = "SNAKE_NULL"
 STUCK = "SNAKE_STUCK"
+
+rewards = {
+    TERMINATED: -20,
+    ATE: 10,
+    NULL: -1,
+    STUCK: -40
+}
