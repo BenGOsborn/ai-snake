@@ -1,7 +1,7 @@
 import torch
 
 from model.ga.model import GAModel
-from model.agent import Agent
+from model.ga.agent import Agent
 
 
 class GATrainer:

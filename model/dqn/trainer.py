@@ -1,13 +1,13 @@
 import torch
 
 from model.dqn.model import DQNModel
-from model.agent import Agent
 
 
 class DQNTrainer:
-    def __init__(self, snake, time_limit=1000, copy_timesteps=50, alpha=1e-3, gamma=0.9, epsilon=0.9, epsilon_dec=0.996, epsilon_end=0.01):
+    def __init__(self, snake, time_limit=1000, copy_timesteps=50, batch_size=5, alpha=1e-3, gamma=0.9, epsilon=0.9, epsilon_dec=0.996, epsilon_end=0.01):
         self.time_limit = time_limit
         self.copy_timesteps = copy_timesteps
+        self.batch_size = batch_size
         self.alpha = alpha
         self.gamma = gamma
         self.epsilon = epsilon
