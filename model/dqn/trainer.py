@@ -1,4 +1,5 @@
 import torch
+import copy
 
 from model.dqn.model import DQNModel
 
@@ -17,7 +18,7 @@ class DQNTrainer:
 
         # Initialize model
         self.model = DQNModel()
-        self.target_model = DQNModel()
+        self.target_model = copy.deepcopy(self.model)
 
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=alpha)
 
@@ -34,7 +35,7 @@ class DQNTrainer:
 
     # Update the target model with the current models weights
     def copy_to_target(self):
-        self.target_model.load_state_dict(self.model.state_dict())
+        self.target_model = copy.deepcopy(self.model)
 
     # Run a single game
     def run_episode(self):
