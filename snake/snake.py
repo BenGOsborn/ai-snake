@@ -4,11 +4,12 @@ import snake.utils as utils
 
 
 class Snake:
-    def __init__(self, height, width, food_amount, seed=None):
+    def __init__(self, height, width, food_amount, seed=None, stuck_limit=50):
         self.height = height
         self.width = width
         self.food_amount = food_amount
         self.seed = seed
+        self.stuck_limit = stuck_limit
 
         self.random = None
         self.snake = None

@@ -14,7 +14,8 @@ def main(stdscr):
         utils.HEIGHT,
         utils.WIDTH,
         utils.FOOD_AMOUNT,
-        seed=utils.SEED
+        seed=utils.SEED,
+        stuck_limit=utils.STUCK_LIMIT,
     )
 
     display = Display(snake, stdscr)
@@ -39,7 +40,8 @@ def main_noscrn():
         utils.HEIGHT,
         utils.WIDTH,
         utils.FOOD_AMOUNT,
-        seed=utils.SEED
+        seed=utils.SEED,
+        stuck_limit=utils.STUCK_LIMIT,
     )
 
     model = Model()
