@@ -18,6 +18,8 @@ class Snake:
         self.counter = 0
         self.last_eaten = 0
 
+        self.dir = (1, 0)
+
         # Initialize the game
         self.reset()
 
@@ -62,7 +64,7 @@ class Snake:
         standardized_distance = (self.height ** 2 + self.width ** 2) ** (1/2)
 
         # Get the distance to food and accessibility of each direction
-        for y, x in [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]]:
+        for y, x in [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (-1, 1), (1, -1), (1, 1)]:
             y += self.snake[0][0]
             x += self.snake[0][1]
 
@@ -74,6 +76,10 @@ class Snake:
                 ]
             )
             state.append(food_distance)
+
+        # Add the context of the previous snake position
+        for pos in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            state.append(1 if pos == self.dir else 0)
 
         return state
 
@@ -99,15 +105,15 @@ class Snake:
 
         # Update snake position
         if key == 0:
-            mvmnt = [-1, 0]  # Up
+            self.dir = (-1, 0)  # Up
         elif key == 1:
-            mvmnt = [1, 0]  # Down
+            self.dir = (1, 0)  # Down
         elif key == 2:
-            mvmnt = [0, -1]  # Left
+            self.dir = (0, -1)  # Left
         elif key == 3:
-            mvmnt = [0, 1]  # Right
+            self.dir = (0, 1)  # Right
 
-        pos = (self.snake[0][0] + mvmnt[0], self.snake[0][1] + mvmnt[1])
+        pos = (self.snake[0][0] + self.dir[0], self.snake[0][1] + self.dir[1])
         pos_value = self.pos_value(*pos)
 
         # Update position of snake
