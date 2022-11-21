@@ -48,5 +48,5 @@ class Agent:
         avg_steps = sum(steps) / len(steps) if len(steps) > 0 else 0
 
         # Calculate and update the agents fitness
-        self.fitness = record * 2
-        self.fitness = self.fitness - deaths * 0.15 - penalty * 10 - avg_steps * 0.1
+        self.fitness = record * 3
+        self.fitness = self.fitness - deaths * 5 - penalty * 10 - avg_steps * 0.1
