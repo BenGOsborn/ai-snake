@@ -5,7 +5,7 @@ import sys
 
 from snake.snake import Snake
 from display.display import Display
-from model.model import Model
+from model.ga.model import GAModel
 from model.utils import choose_key
 import utils
 
@@ -20,7 +20,7 @@ def main(stdscr):
 
     display = Display(snake, stdscr)
 
-    model = Model()
+    model = GAModel()
     model.load_state_dict(torch.load(utils.MODEL_PATH_GA))
     model.eval()
 
@@ -43,7 +43,7 @@ def main_noscrn():
         seed=utils.SNAKE_SEED,
     )
 
-    model = Model()
+    model = GAModel()
     model.load_state_dict(torch.load(utils.MODEL_PATH_GA))
     model.eval()
 

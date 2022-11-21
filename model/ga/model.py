@@ -1,7 +1,7 @@
 import torch.nn as nn
 
 
-class Model(nn.Module):
+class GAModel(nn.Module):
     def __init__(self):
         super().__init__()
 

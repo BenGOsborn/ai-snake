@@ -1,5 +1,5 @@
 from snake.snake import Snake
-from model.ga.trainer import Trainer
+from model.ga.trainer import GATrainer
 import utils
 
 
@@ -12,7 +12,7 @@ def main():
         seed=utils.SNAKE_SEED
     )
 
-    trainer = Trainer(
+    trainer = GATrainer(
         snake,
         utils.GENERATION_SIZE,
         utils.TOP_K,

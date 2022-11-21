@@ -1,10 +1,10 @@
 import torch
 
-from model.model import Model
+from model.ga.model import GAModel
 from model.agent import Agent
 
 
-class Trainer:
+class GATrainer:
     def __init__(self, snake, generation_size, top_k, mutation_chance, mutation_pop_chance):
         self.generation_size = generation_size
         self.top_k = top_k
@@ -15,7 +15,7 @@ class Trainer:
 
         # Initialize generation
         self.generation = [
-            Agent(self.snake, Model().eval()) for _ in range(generation_size)
+            Agent(self.snake, GAModel().eval()) for _ in range(generation_size)
         ]
 
         # Keep track of the best agent
@@ -46,7 +46,7 @@ class Trainer:
             new_genes[key] = genes
 
         # Create new child with new genes
-        model = Model()
+        model = GAModel()
         model.load_state_dict(new_genes)
 
         return Agent(self.snake, model.eval())
@@ -93,7 +93,7 @@ class Trainer:
 
         for _ in range(len(self.generation) - len(new_generation)):
             # Add random genes to the pool
-            rand = Agent(self.snake, Model().eval())
+            rand = Agent(self.snake, GAModel().eval())
             new_generation.append(rand)
 
         # Replace old generation
