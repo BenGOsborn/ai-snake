@@ -53,7 +53,7 @@ def main_noscrn():
         input_key = choose_key(state, model)
 
         print(
-            f"Snake size {len(snake.snake)} - Snake head {snake.snake[0]} - Food {snake.food}"
+            f"Snake size {len(snake.snake)} - Snake head {snake.snake[0]} - Food {snake.food}\nState - {snake.get_state()}"
         )
 
         snake.update_state(input_key)
