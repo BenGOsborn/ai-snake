@@ -5,8 +5,7 @@ from model.dqn.model import DQNModel
 
 
 class DQNTrainer:
-    def __init__(self, snake, time_limit=1000, copy_timesteps=50, batch_size=32, alpha=1e-3, gamma=0.9, epsilon=1, epsilon_dec=0.9996, epsilon_end=0.01):
-        self.time_limit = time_limit
+    def __init__(self, snake, copy_timesteps=50, batch_size=32, alpha=1e-3, gamma=0.9, epsilon=1, epsilon_dec=0.9996, epsilon_end=0.01):
         self.copy_timesteps = copy_timesteps
         self.batch_size = batch_size
         self.gamma = gamma
@@ -26,6 +25,7 @@ class DQNTrainer:
         self.states = None
         self.actions = None
         self.rewards = None
+        self.states_next = None
 
     # Save the current model
     def save_model(self, path):
@@ -38,20 +38,5 @@ class DQNTrainer:
         self.target_model = copy.deepcopy(self.model)
 
     # Run a single game
-    def run_episode(self):
-        states = []
-        actions = []
-        rewards = [0]  # Initialize reward t = 0
-
-        time = 0
-
-        # Run the game loop
-        while time < self.time_limit:
-            pass
-
-        # Update states
-        self.states = states
-        self.actions = actions
-        self.rewards = rewards
-
-    # Evaluate the game
+    def train_step(self):
+        pass
