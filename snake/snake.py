@@ -125,7 +125,7 @@ class Snake:
         if pos_value == 1:
             self.eat_food(*pos)
 
-            self.last_eaten = self.counter
+            self.last_eaten = self.counter  # UPDATE THESE COUNTERS
 
             return utils.ATE, 10
         else:
