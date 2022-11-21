@@ -93,7 +93,6 @@ class Snake:
         if self.counter - self.last_eaten == self.stuck_limit:
             self.choose_snake_position()
 
-            self.counter += 1
             self.last_eaten = self.counter
 
             return utils.STUCK, -100
@@ -115,7 +114,7 @@ class Snake:
         if pos_value == -1:
             self.choose_snake_position()
 
-            self.counter += 1
+            self.last_eaten = self.counter
 
             return utils.TERMINATED, -20
         else:
@@ -125,7 +124,7 @@ class Snake:
         if pos_value == 1:
             self.eat_food(*pos)
 
-            self.last_eaten = self.counter  # UPDATE THESE COUNTERS
+            self.last_eaten = self.counter
 
             return utils.ATE, 10
         else:
