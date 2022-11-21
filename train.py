@@ -1,5 +1,5 @@
 from snake.snake import Snake
-from model.trainer import Trainer
+from model.ga.trainer import Trainer
 import utils
 
 
