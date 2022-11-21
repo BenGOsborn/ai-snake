@@ -24,15 +24,15 @@ class DQNTrainer:
         self.actions = None
         self.rewards = None
 
-    # Update the target model with the current models weights
-    def copy_to_target(self):
-        self.target_model.load_state_dict(self.model.state_dict())
-
     # Save the current model
     def save_model(self, path):
         print(f"Saving model to '{path}'...")
 
         torch.save(self.model.state_dict(), path)
+
+    # Update the target model with the current models weights
+    def copy_to_target(self):
+        self.target_model.load_state_dict(self.model.state_dict())
 
     # Run a single game
     def run_episode(self):
