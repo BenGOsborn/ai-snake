@@ -6,9 +6,9 @@ An AI powered snake game featuring genetic algorithms and deep Q learning.
 
 -   Python 3.8.10
 
-## Instructions
-
 `pip3 install -r requirements.txt`
+
+## Instructions
 
 ### Running
 
