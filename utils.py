@@ -10,14 +10,15 @@ HEIGHT = 10
 WIDTH = 10
 FOOD_AMOUNT = 12
 
-# Training params
-GENERATION_SIZE = 100
-
 # Genetic algorithm params
+GA_GENERATIONS = 200
+GENERATION_SIZE = 100
 TOP_K = 25
 MUTATION_CHANCE = 0.15
 MUTATE_POP_CHANCE = 0.20
-GENERATIONS = 200
+
+# DQN params
+DQN_GENERATIONS = 10000
 
 # Model paths
 MODEL_PATH_GA = os.path.join(os.getcwd(), "bin", "model_ga.pth")

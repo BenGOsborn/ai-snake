@@ -24,7 +24,7 @@ def train_ga():
     )
 
     # Train for N generations
-    for i in range(utils.GENERATIONS):
+    for i in range(utils.GA_GENERATIONS):
         trainer.evaluate_population()
         trainer.create_next_generation()
 
@@ -44,7 +44,7 @@ def train_dqn():
     trainer = DQNTrainer(snake)
 
     # Train for N generations
-    for i in range(utils.GENERATIONS):
+    for i in range(utils.DQN_GENERATIONS):
         trainer.train_step()
 
         if i % 20 == 0:
@@ -54,7 +54,7 @@ def train_dqn():
 if __name__ == "__main__":
     if "ga" in sys.argv:
         train_ga()
-    elif "dqn" in sys.arv:
+    elif "dqn" in sys.argv:
         train_dqn()
     else:
         raise Exception("Invalid arguments")

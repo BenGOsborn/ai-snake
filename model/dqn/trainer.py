@@ -77,6 +77,7 @@ class DQNTrainer:
 
         # Train a batch
         if len(self.states) >= self.batch_size:
+            print("YES")
             pass
 
         # Update epsilon
