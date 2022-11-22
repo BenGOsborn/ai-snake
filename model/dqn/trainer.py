@@ -55,6 +55,8 @@ class DQNTrainer:
         # Decrease epsilon value
         # Update the training step
 
+        self.model.eval()
+
         # Run a single step from the game
         state = self.snake.get_state()
 
@@ -80,8 +82,9 @@ class DQNTrainer:
 
             # Create predictions of Q values for the current state
             states = torch.tensor([self.states[i] for i in batch])
+            preds = self.model(states)
 
-            print(states)
+            print(preds)
 
         # Update epsilon
         if self.epsilon > self.epsilon_min:
