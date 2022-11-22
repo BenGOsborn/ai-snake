@@ -10,7 +10,7 @@ from model.utils import choose_key
 import utils
 
 
-def main(stdscr):
+def run_ga(stdscr):
     snake = Snake(
         utils.HEIGHT,
         utils.WIDTH,
@@ -35,7 +35,7 @@ def main(stdscr):
         sleep(1 / utils.FRAME_RATE)
 
 
-def main_noscrn():
+def run_ga_noscr():
     snake = Snake(
         utils.HEIGHT,
         utils.WIDTH,
@@ -62,7 +62,10 @@ def main_noscrn():
 
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == "d":
-        curses.wrapper(main)
-    else:
-        main_noscrn()
+    if "ga" in sys.argv:
+        if "d" in sys.argv:
+            curses.wrapper(run_ga)
+        else:
+            run_ga_noscr()
+    elif "dqn" in sys.argv:
+        pass

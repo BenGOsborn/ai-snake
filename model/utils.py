@@ -11,6 +11,6 @@ def choose_key(state, model):
     with torch.no_grad():
         vals = model(inputs)
 
-    argmax = torch.argmax(vals).item()
+    argmax = torch.argmax(vals)
 
-    return argmax, vals[argmax]
+    return argmax, vals.squeeze()[argmax]
