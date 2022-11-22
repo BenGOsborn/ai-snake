@@ -80,7 +80,8 @@ class DQNTrainer:
         if len(self.states) >= self.batch_size:
             batch = random.sample(self.indices, self.batch_size)
 
-            print(batch)
+            for i in batch:
+                pass
 
         # Update epsilon
         if self.epsilon > self.epsilon_min:
