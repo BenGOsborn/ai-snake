@@ -26,9 +26,9 @@ def main(stdscr):
 
     # Game loop
     while True:
-        input_key = choose_key(snake.get_state(), model)
+        key, _ = choose_key(snake.get_state(), model)
 
-        snake.update_state(input_key)
+        snake.update_state(key)
 
         display.display()
 
@@ -50,13 +50,13 @@ def main_noscrn():
     # Game loop
     while True:
         state = snake.get_state()
-        input_key = choose_key(state, model)
+        key, _ = choose_key(state, model)
 
         print(
-            f"Snake size {len(snake.snake)} - Snake head {snake.snake[0]} - Food {snake.food}\nState - {snake.get_state()}"
+            f"Snake size {len(snake.snake)} - Snake head {snake.snake[0]} - Food {snake.food}\nState - {state}"
         )
 
-        snake.update_state(input_key)
+        snake.update_state(key)
 
         sleep(1 / utils.FRAME_RATE)
 

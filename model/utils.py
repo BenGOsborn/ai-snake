@@ -9,6 +9,8 @@ def choose_key(state, model):
     ).unsqueeze(0)
 
     with torch.no_grad():
-        probs = model(inputs)
+        vals = model(inputs)
 
-    return torch.argmax(probs).item()
+    argmax = torch.argmax(vals).item()
+
+    return argmax, vals[argmax]

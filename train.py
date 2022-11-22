@@ -26,8 +26,6 @@ def main():
         trainer.create_next_generation()
 
         if i % 20 == 0:
-            print(f"Generation {i}")
-
             trainer.save_best_agent(utils.MODEL_PATH_GA)
 
 

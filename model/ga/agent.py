@@ -24,7 +24,7 @@ class Agent:
         # Run the game loop
         while time < time_limit:
             # Choose a key and update the state
-            key = model_utils.choose_key(self.snake.get_state(), self.model)
+            key, _ = model_utils.choose_key(self.snake.get_state(), self.model)
             event = self.snake.update_state(key)
 
             # Process eating and death events
