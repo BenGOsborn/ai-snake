@@ -33,6 +33,9 @@ class DQNTrainer:
         self.rewards = deque([], maxlen=buffer_length)
         self.new_states = deque([], maxlen=buffer_length)
 
+        # Used for random batch selection
+        self.indices = [i for i in range(buffer_length)]
+
     # Save the current model
     def save_model(self, path):
         print(f"Saving model to '{path}'...")
@@ -68,8 +71,6 @@ class DQNTrainer:
         new_state = self.snake.get_state()
 
         # Update state data
-        print(state, action, reward, new_state)
-
         self.states.append(state)
         self.actions.append(action)
         self.rewards.append(reward)
@@ -77,7 +78,9 @@ class DQNTrainer:
 
         # Train a batch
         if len(self.states) >= self.batch_size:
-            pass
+            batch = random.sample(self.indices, self.batch_size)
+
+            print(batch)
 
         # Update epsilon
         if self.epsilon > self.epsilon_min:
