@@ -9,7 +9,7 @@ import model.utils as model_utils
 
 
 class DQNTrainer:
-    def __init__(self, snake, copy_steps=50, batch_size=32, buffer_length=128, alpha=1e-3, gamma=0.9, epsilon=1, epsilon_dec=0.9996, epsilon_min=0.01):
+    def __init__(self, snake, copy_steps=50, batch_size=64, buffer_length=1000, alpha=5e-4, gamma=0.99, epsilon=1, epsilon_dec=0.9996, epsilon_min=0.01):
         self.copy_steps = copy_steps
         self.batch_size = batch_size
         self.gamma = gamma
@@ -32,9 +32,6 @@ class DQNTrainer:
         self.actions = deque([], maxlen=buffer_length)
         self.rewards = deque([], maxlen=buffer_length)
         self.new_states = deque([], maxlen=buffer_length)
-
-        # Used for random batch selection
-        self.indices = [i for i in range(buffer_length)]
 
     # Save the current model
     def save_model(self, path):
@@ -78,11 +75,13 @@ class DQNTrainer:
 
         # Train a batch
         if len(self.states) >= self.batch_size:
-            batch = random.sample(self.indices, self.batch_size)
+            indices = [i for i in range(len(self.states))]
+            batch = random.sample(indices, self.batch_size)
 
-            # Perform a training step
-            for i in batch:
-                pass
+            # Create predictions of Q values for the current state
+            states = [self.states[i] for i in batch]
+
+            print(batch)
 
         # Update epsilon
         if self.epsilon > self.epsilon_min:
