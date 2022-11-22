@@ -87,6 +87,9 @@ class DQNTrainer:
             rewards = torch.tensor([self.rewards[i] for i in batch])
 
             preds_main = self.model(states)
+            preds_main_selected = preds_main[actions]
+
+            print(preds_main_selected)
 
             # Get the targets predictions for the next states
             next_states = torch.tensor([self.new_states[i] for i in batch])
@@ -94,9 +97,6 @@ class DQNTrainer:
             with torch.no_grad():
                 target_preds = self.target_model(next_states)
                 target_max = torch.max(target_preds, dim=1)
-
-            print(target_preds)
-            print(target_max)
 
             # Calculate the loss
 
