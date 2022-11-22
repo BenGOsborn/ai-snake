@@ -2,7 +2,7 @@ import os
 
 
 # General params
-FRAME_RATE = 10
+FRAME_RATE = 5
 
 # Snake params
 SNAKE_SEED = None
