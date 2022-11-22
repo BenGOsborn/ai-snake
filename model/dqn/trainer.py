@@ -98,10 +98,13 @@ class DQNTrainer:
 
             with torch.no_grad():
                 target_preds = self.target_model(next_states)
-                target_max = torch.max(target_preds, dim=1)
+                target_max = torch.max(target_preds, dim=1)[0]
 
             # Calculate the loss and backpropogate
-            loss = self.loss(rewards + self.gamma * target_max - preds_main)
+            loss = self.loss(
+                rewards + torch.mul(self.gamma, target_max),
+                preds_main
+            )
 
             print(f"Loss - {loss}")
 
