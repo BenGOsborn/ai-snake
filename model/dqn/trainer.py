@@ -9,7 +9,7 @@ import model.utils as model_utils
 
 
 class DQNTrainer:
-    def __init__(self, snake, copy_steps=50, batch_size=64, buffer_length=1000, alpha=5e-4, gamma=0.99, epsilon=1, epsilon_dec=0.9996, epsilon_min=0.01):
+    def __init__(self, snake, copy_steps=50, batch_size=5, buffer_length=1000, alpha=5e-4, gamma=0.99, epsilon=1, epsilon_dec=0.9996, epsilon_min=0.01):
         self.copy_steps = copy_steps
         self.batch_size = batch_size
         self.gamma = gamma
