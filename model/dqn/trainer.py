@@ -91,9 +91,14 @@ class DQNTrainer:
             # Get the targets predictions for the next states
             next_states = torch.tensor([self.new_states[i] for i in batch])
 
-            preds_target = self.target_model(next_states)
+            with torch.no_grad():
+                target_preds = self.target_model(next_states)
+                target_max = torch.max(target_preds, dim=1)
 
-            print(preds_target)
+            print(target_preds)
+            print(target_max)
+
+            # Calculate the loss
 
             # So now we need to calculate the target values from the predictions and mask the rest
 
