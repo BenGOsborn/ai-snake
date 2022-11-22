@@ -29,6 +29,8 @@ def train_ga():
         trainer.create_next_generation()
 
         if i % 20 == 0:
+            print(f"Generation {i}")
+
             trainer.save_best_agent(utils.MODEL_PATH_GA)
 
 
@@ -44,10 +46,12 @@ def train_dqn():
     trainer = DQNTrainer(snake)
 
     # Train for N generations
-    for i in range(utils.DQN_GENERATIONS):
+    for i in range(utils.DQN_EPOCHS):
         trainer.train_step()
 
         if i % 20 == 0:
+            print(f"Epoch {i}")
+
             trainer.save_model(utils.MODEL_PATH_DQN)
 
 
