@@ -9,7 +9,7 @@ import model.utils as model_utils
 
 
 class DQNTrainer:
-    def __init__(self, snake, copy_steps=50, batch_size=5, buffer_length=1000, alpha=5e-4, gamma=0.99, epsilon=1, epsilon_dec=0.9996, epsilon_min=0.01):
+    def __init__(self, snake, copy_steps=50, batch_size=64, buffer_length=1000, alpha=5e-4, gamma=0.99, epsilon=1, epsilon_dec=0.9996, epsilon_min=0.01):
         self.copy_steps = copy_steps
         self.batch_size = batch_size
         self.gamma = gamma
@@ -24,6 +24,7 @@ class DQNTrainer:
         self.target_model = copy.deepcopy(self.model)
 
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=alpha)
+        self.loss = torch.nn.MSELoss()
 
         self.step = 0
 
@@ -86,13 +87,11 @@ class DQNTrainer:
             actions = torch.tensor([self.actions[i] for i in batch])
             rewards = torch.tensor([self.rewards[i] for i in batch])
 
-            preds_main = self.model(states)
-            preds_main_selected = preds_main[:, actions]
-
-            print(preds_main)
-            print(actions)
-            print(preds_main_selected)
-            print()
+            preds_main_raw = self.model(states)
+            preds_main = preds_main_raw[
+                torch.arange(self.batch_size),
+                actions
+            ]
 
             # Get the targets predictions for the next states
             next_states = torch.tensor([self.new_states[i] for i in batch])
@@ -101,9 +100,15 @@ class DQNTrainer:
                 target_preds = self.target_model(next_states)
                 target_max = torch.max(target_preds, dim=1)
 
-            # Calculate the loss
+            # Calculate the loss and backpropogate
+            loss = self.loss(rewards + self.gamma * target_max - preds_main)
 
-            # So now we need to calculate the target values from the predictions and mask the rest
+            print(f"Loss - {loss}")
+
+            loss.backward()
+
+            self.optimizer.step()
+            self.optimizer.zero_grad()
 
         # Update epsilon
         if self.epsilon > self.epsilon_min:
