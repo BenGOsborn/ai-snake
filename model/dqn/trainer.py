@@ -21,7 +21,8 @@ class DQNTrainer:
 
         # Initialize model
         self.model = DQNModel()
-        self.target_model = copy.deepcopy(self.model)
+        self.target_model = DQNModel().eval()
+        self.copy_to_target()
 
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=alpha)
         self.loss = torch.nn.MSELoss()
@@ -42,20 +43,10 @@ class DQNTrainer:
 
     # Update the target model with the current models weights
     def copy_to_target(self):
-        self.target_model = copy.deepcopy(self.model)
+        self.target_model.load_state_dict(self.model.state_dict())
 
     # Run a single game
     def train_step(self):
-        # Run a step of the game based on epsilon greedy policy
-        # Record the state, action, reward, and next state
-        # If the amount of data is greater than or equal to the batch size:
-        # - Select a random batch of experience tuples by index
-        # - For each tuple, run the next state through the target model and select the top output from it
-        # - Calculate loss and backpropagate
-        # If x timesteps has proceeded, copy the current model to the target model
-        # Decrease epsilon value
-        # Update the training step
-
         self.model.eval()
 
         # Run a single step from the game
@@ -78,6 +69,8 @@ class DQNTrainer:
 
         # Train a batch
         if len(self.states) >= self.batch_size:
+            self.model.train()
+
             # Select a random batch from the memory buffer
             indices = [i for i in range(len(self.states))]
             batch = random.sample(indices, self.batch_size)

@@ -6,6 +6,7 @@ import sys
 from snake.snake import Snake
 from display.display import Display
 from model.ga.model import GAModel
+from model.dqn.model import DQNModel
 from model.utils import choose_key
 import utils
 
@@ -57,6 +58,31 @@ def run_ga_noscr():
         )
 
         snake.update_state(key)
+
+        sleep(1 / utils.FRAME_RATE)
+
+
+def run_dqn(stdscr):
+    snake = Snake(
+        utils.HEIGHT,
+        utils.WIDTH,
+        utils.FOOD_AMOUNT,
+        seed=utils.SNAKE_SEED
+    )
+
+    display = Display(snake, stdscr)
+
+    model = DQNModel()
+    model.load_state_dict(torch.load(utils.MODEL_PATH_GA))
+    model.eval()
+
+    # Game loop
+    while True:
+        key, _ = choose_key(snake.get_state(), model)
+
+        snake.update_state(key)
+
+        display.display()
 
         sleep(1 / utils.FRAME_RATE)
 
