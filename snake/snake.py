@@ -32,6 +32,10 @@ class Snake:
         self.choose_snake_position()
         self.choose_food_position()
 
+    # Select a random location for food
+    def select_position(self):
+        return self.random.randint(0, self.height - 1), self.random.randint(0, self.width - 1)
+
     # Choose a snake position
     def choose_snake_position(self):
         self.snake = [self.select_position()]
@@ -39,7 +43,11 @@ class Snake:
     # Choose a food position
     def choose_food_position(self):
         for _ in range(self.food_amount - len(self.food)):
-            self.food.append(self.select_position())
+            condition = True
+            while condition:
+                pos = self.select_position()
+                condition = self.pos_value(*pos) != 0
+            self.food.append(pos)
 
     # Eat food at a given position
     def eat_food(self, y, x):
@@ -52,10 +60,6 @@ class Snake:
 
         self.food.pop(pos)
         self.choose_food_position()
-
-    # Select a random location for food
-    def select_position(self):
-        return self.random.randint(0, self.height - 1), self.random.randint(0, self.width - 1)
 
     # Get the game state
     def get_state(self):
