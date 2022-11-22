@@ -79,9 +79,9 @@ class DQNTrainer:
             batch = random.sample(indices, self.batch_size)
 
             # Create predictions of Q values for the current state
-            states = [self.states[i] for i in batch]
+            states = torch.tensor([self.states[i] for i in batch])
 
-            print(batch)
+            print(states)
 
         # Update epsilon
         if self.epsilon > self.epsilon_min:
