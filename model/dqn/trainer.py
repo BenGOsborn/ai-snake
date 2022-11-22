@@ -83,16 +83,19 @@ class DQNTrainer:
 
             # Create predictions of Q values for the current state
             states = torch.tensor([self.states[i] for i in batch])
-            actions = torch.tensor(self.actions[i] for i in batch)
-            rewards = torch.tensor(self.rewards[i] for i in batch)
-            next_states = torch.tensor(self.states[i] for i in batch)
+            actions = torch.tensor([self.actions[i] for i in batch])
+            rewards = torch.tensor([self.rewards[i] for i in batch])
 
-            preds = self.model(states)
+            preds_main = self.model(states)
+
+            # Get the targets predictions for the next states
+            next_states = torch.tensor([self.new_states[i] for i in batch])
+
+            preds_target = self.target_model(next_states)
+
+            print(preds_target)
 
             # So now we need to calculate the target values from the predictions and mask the rest
-            mask = torch.zeros(preds.shape)
-
-            print(mask)
 
         # Update epsilon
         if self.epsilon > self.epsilon_min:
