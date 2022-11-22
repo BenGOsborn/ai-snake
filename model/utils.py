@@ -1,7 +1,7 @@
 import torch
 
 
-# Let the model choose a key based on the game state
+# Choose a key from a single game state
 def choose_key(state, model):
     inputs = torch.tensor(
         state,

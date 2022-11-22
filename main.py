@@ -69,3 +69,5 @@ if __name__ == "__main__":
             run_ga_noscr()
     elif "dqn" in sys.argv:
         pass
+    else:
+        raise Exception("Invalid arguments")

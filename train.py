@@ -1,3 +1,5 @@
+import sys
+
 from snake.snake import Snake
 from model.ga.trainer import GATrainer
 from model.dqn.trainer import DQNTrainer
@@ -50,4 +52,9 @@ def train_dqn():
 
 
 if __name__ == "__main__":
-    train_ga()
+    if "ga" in sys.argv:
+        train_ga()
+    elif "dqn" in sys.arv:
+        train_dqn()
+    else:
+        raise Exception("Invalid arguments")
