@@ -87,9 +87,12 @@ class DQNTrainer:
             rewards = torch.tensor([self.rewards[i] for i in batch])
 
             preds_main = self.model(states)
-            preds_main_selected = preds_main[actions]
+            preds_main_selected = preds_main[:, actions]
 
+            print(preds_main)
+            print(actions)
             print(preds_main_selected)
+            print()
 
             # Get the targets predictions for the next states
             next_states = torch.tensor([self.new_states[i] for i in batch])
