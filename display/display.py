@@ -13,7 +13,10 @@ class Display:
         self.stdscr.clear()
 
         # Draw snake
-        for body in self.snake.snake:
+        self.stdscr.addch(
+            self.snake.snake[0][0], self.snake.snake[0][1], curses.ACS_DIAMOND)
+
+        for body in self.snake.snake[1:]:
             self.stdscr.addch(body[0], body[1], curses.ACS_BLOCK)
 
         # Draw food
