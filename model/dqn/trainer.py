@@ -80,6 +80,7 @@ class DQNTrainer:
         if len(self.states) >= self.batch_size:
             batch = random.sample(self.indices, self.batch_size)
 
+            # Perform a training step
             for i in batch:
                 pass
 
