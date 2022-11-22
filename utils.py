@@ -18,7 +18,7 @@ MUTATION_CHANCE = 0.15
 MUTATE_POP_CHANCE = 0.20
 
 # DQN params
-DQN_GENERATIONS = 10000
+DQN_GENERATIONS = 100000
 
 # Model paths
 MODEL_PATH_GA = os.path.join(os.getcwd(), "bin", "model_ga.pth")
