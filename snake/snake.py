@@ -39,9 +39,7 @@ class Snake:
     # Choose a food position
     def choose_food_position(self):
         for _ in range(self.food_amount - len(self.food)):
-            position = self.select_position()
-            self.food.append(position)
-            print(f"New food position: {position}")
+            self.food.append(self.select_position())
 
     # Eat food at a given position
     def eat_food(self, y, x):
